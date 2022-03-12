@@ -10,11 +10,15 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     private Long id;
+    @Column(name="kakao_id")
+    private int kakaoId;
+    @Column(name="email")
     private String email;
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ here is login page<br>
+    <button>kakao login</button>
+    <script th:inline="javascript">
+        const key=[[${key}]];
+        const redirect=[[${redirect}]];
+
+        document.querySelector("button").addEventListener("click",e=>{
+            location.href="https://kauth.kakao.com/oauth/authorize?client_id="+key+"&redirect_uri="+redirect+"&response_type=code";
+        })
+    </script>
+</body>
+</html>
