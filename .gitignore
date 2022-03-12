@@ -39,4 +39,4 @@ out/
 
 /src/main/resources/application-SECURITY.properties
 /src/main/resources/application-SECURITY-LOCAL.properties
-/src/main/resources/application-SECURITY-KEY.properties
+/src/main/resources/application-KEY.properties
