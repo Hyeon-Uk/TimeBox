@@ -20,8 +20,8 @@ public class UserService{
         return userDao.save(user);
     }
 
-    public User getUser(String email) {
-        return userDao.findByEmail(email).orElse(null);
+    public User getUser(long id) {
+        return userDao.findById(id).orElse(null);
     }
 
     public List<User> getAllUsers() {
