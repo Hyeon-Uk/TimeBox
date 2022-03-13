@@ -2,11 +2,90 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="user-scalable=0;"/>
+    <title>TimeBox</title>
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
+    <link th:href="@{/css/home.css}" href="/static/css/home.css" rel="stylesheet">
 </head>
 <body>
- here is home<br>
-hello <span th:text="${email}">name</span>
-<a th:href="@{http://localhost:8080/logout}">logout</a>
+    <div class="container">
+        <nav class="nav justify-content-between">
+            <a style="color:black"class="nav-link" th:href="@{http://localhost:8080/auth/logout}">Logout</a>
+            <a style="color:black"class="nav-link" >작성하러 가기</a>
+        </nav>
+        <div class="profile">
+            <img class="profile-image" src="/static/images/bg.jpg" th:src="${user.getImgSrc()}">
+        </div>
+
+
+        
+         <!-- <form action="/message/" method="post">
+            <input type="text" name="content"/>
+            <input type="date" name="deadline"/>
+            <input type="submit"/>
+        </form> -->
+        <div class="boxes">
+            <a href="#" class="box" th:each="message:${messages}">
+                <input type="hidden" class="deadline" th:value="${message.getDeadline()}" value="2022-03-15 00:00:00"/>
+                <div class="box-header">
+                    <div class="box-header-border"></div>
+                    <div class="box-header-border"></div>
+                </div>
+                <div class="box-content">
+                    <span>남은 시간 <br> 
+                        <span class="deadline-text">2020-03-15</span>
+                    </span>
+                </div>
+            </a>
+        </div>
+    </div>
+    <script>
+        //타이머 참조
+        //https://wonpaper.tistory.com/319
+        const deadlines=document.querySelectorAll('.deadline');
+        const deadlinesText=document.querySelectorAll('.deadline-text');   
+        const convertUTCDateToLocalDate=(date)=> {
+            const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
+
+            const offset = date.getTimezoneOffset() / 60;
+            const hours = date.getHours();
+
+            newDate.setHours(hours - offset);
+
+            return newDate;
+        }
+ 
+        const countDownTimer=()=>{
+            const _second=1000;
+            const _minute=_second*60;
+            const _hour=_minute*60;
+            const _day=_hour*24;
+            deadlines.forEach((deadline,index)=>{
+                const target=new Date(deadline.value);
+                const timer=setInterval(()=>{
+                    const now = new Date();
+                    const distance = target.getTime() - now.getTime();
+                    if (distance < 0) {
+                        clearInterval(timer);
+                        deadlinesText[index].innerHTML="Can Open!";
+                        return;
+                    }
+                    const days = Math.floor(distance / _day);
+                    const hours = Math.floor((distance % _day) / _hour);
+                    const minutes = Math.floor((distance % _hour) / _minute);
+                    const seconds = Math.floor((distance % _minute) / _second);
+                    deadlinesText[index].innerHTML=`${days}일 ${hours}시간 ${minutes}분 ${seconds}초`;
+                },1000);
+            })
+        }
+        countDownTimer();
+    </script>
 </body>
 </html>

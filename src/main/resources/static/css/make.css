@@ -1,0 +1,117 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family: 'Nanum Brush Script', cursive;
+    box-sizing:border-box;
+}
+
+ul,li{
+    margin:0;
+    padding:0;
+}
+li{
+    list-style:none;
+}
+
+body{
+    width:100vw;
+    min-height:100vh;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    background-color:rgba(201,222,207,0.4);
+    padding-bottom:50px;
+}
+
+.container{
+    width:100vw;
+    /* max-width:950x; */
+    min-height:100vh;
+    height:100%;
+
+    padding-bottom:50px;
+
+    /* max-height:1024px; */
+    margin:auto;
+    background-color: rgba(255,255,255,0.3);
+}
+
+.nav{
+    font-size:1.5rem;
+}
+
+.profile{
+    margin-top:20px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image{
+    width:250px;
+    height:250px;
+    border-radius: 50%;
+}
+
+.boxes{
+    margin-top:30px;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box{
+    font-size:18px;
+    text-decoration: none;
+    color:white;
+    position:relative;
+    margin-top:50px;
+    background-color:#553830;
+    width:50%;
+    max-width:500px;
+    height:200px;
+    border-radius:15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.box:hover,.box:active{
+    color:white;
+}
+
+.box-header{
+    width:100%;
+    height:35%;
+    border-bottom:2px solid gray;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.box-header-border{
+    width:60%;
+    height:100%;
+    border-left:8px solid silver;
+    border-bottom:13px solid silver;
+    border-right:8px solid silver;
+}
+.box-header-border:first-child{
+    border-top-left-radius: 15px;
+}
+.box-header-border:nth-child(2){
+    border-top-right-radius: 15px;
+}
+
+.box-content{
+    text-align: center;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    height:65%;
+    border-left:8px solid silver;
+    border-bottom:8px solid silver;
+    border-right:8px solid silver;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}

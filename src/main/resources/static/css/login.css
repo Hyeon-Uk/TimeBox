@@ -1,0 +1,50 @@
+*{
+    margin:0px;
+    padding:0px;
+    font-family: 'Nanum Brush Script', cursive;
+}
+
+body{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding-top:40px;
+    padding-bottom:40px;
+    background-color:rgba(201,222,207,0.4);
+    /* background-image: url("../images/bg.jpg");
+    background-repeat: no-repeat;
+    background-size:cover; */
+}
+
+.form-signin{
+    width:80%;
+    max-width:500px;
+    height:50%;
+    max-height:500px;
+    background-color:rgba(255,255,255,0.4);
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin:auto;
+    border-radius:50px;
+}
+h1{
+    font-weight:600;
+}
+h5{
+    margin-top:10px;
+}
+
+#button{
+    all:unset;
+    width:200px;
+    height:50px;
+    cursor: pointer;
+    margin-top:30px;
+    background-image:url("../images/kakao.png");   
+    background-repeat: no-repeat;
+    background-size:cover;
+}
