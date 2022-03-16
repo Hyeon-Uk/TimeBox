@@ -101,15 +101,44 @@ if (range) {
 };
 
 //save
+// function handleSaveClick() {
+//     resultCtx.putImageData(ctx.getImageData(0,0,canvas.width,canvas.height),0,0);
+//     drawText(resultCanvas);
+//     const image = resultCanvas.toDataURL('image/png', 1.0);
+//     const link = document.createElement("a");
+//     link.href = image;
+//     link.download = "PaintJS";
+//     link.click();
+// }
 function handleSaveClick() {
     resultCtx.putImageData(ctx.getImageData(0,0,canvas.width,canvas.height),0,0);
     drawText(resultCanvas);
-    const image = resultCanvas.toDataURL('image/png', 1.0);
-    const link = document.createElement("a");
-    link.href = image;
-    link.download = "PaintJS";
-    link.click();
+    const imgBase64 = resultCanvas.toDataURL('image/png', 'image/octet-stream');
+    const decodImg = atob(imgBase64.split(',')[1]);
+
+    let array = [];
+    for (let i = 0; i < decodImg .length; i++) {
+        array.push(decodImg .charCodeAt(i));
+    }
+
+    const file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+    const fileName = 'canvas_img_' + new Date().getMilliseconds() + '.jpg';
+    let formData = new FormData();
+    formData.append('file', file, fileName);
+    console.log(formData);
+    $.ajax({
+        type: 'post',
+        url: '/',
+        cache: false,
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (data) {
+        alert('Uploaded !!')
+        }
+    })
 }
+
 
 function handleCM(event) {
     event.preventDefault();

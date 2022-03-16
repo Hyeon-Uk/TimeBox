@@ -13,11 +13,11 @@
     border-radius:15px;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator { 
+input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
-     -webkit-appearance: none; 
-     appearance: none; 
-    }
+    -webkit-appearance: none;
+    appearance: none;
+}
 
 ul,li{
     margin:0;

@@ -31,27 +31,23 @@
             <input type="date" name="deadline"/>
             <input type="submit"/>
         </form> -->
-        <div class="boxes">
-            <a href="#" class="box" th:each="message:${messages}">
-                <input type="hidden" class="deadline" th:value="${message.getDeadline()}" value="2022-03-15 00:00:00"/>
-                <div class="box-header">
-                    <div class="box-header-border"></div>
-                    <div class="box-header-border"></div>
-                </div>
-                <div class="box-content">
-                    <span>남은 시간 <br> 
-                        <span class="deadline-text">2020-03-15</span>
-                    </span>
-                </div>
+        <div class="boxes row">
+            <a href="#" class="box col" th:each="message:${messages}">
+                <input type="hidden" class="deadline-value" th:value="${message.getDeadline()}" value="2022-03-15 00:00:00"/>
+                <span class="deadline">남은 시간 <br> 
+                    <span class="deadline-text">2020-03-15</span>
+                </span>
             </a>
         </div>
     </div>
     <script>
         //타이머 참조
         //https://wonpaper.tistory.com/319
-        const deadlines=document.querySelectorAll('.deadline');
+        const boxes=document.querySelectorAll(".box");
+        const deadlines=document.querySelectorAll('.deadline-value');
         const deadlinesText=document.querySelectorAll('.deadline-text');   
         const convertUTCDateToLocalDate=(date)=> {
+            console.log()
             const newDate = new Date(date.getTime()+date.getTimezoneOffset()*60*1000);
 
             const offset = date.getTimezoneOffset() / 60;
@@ -75,6 +71,7 @@
                     if (distance < 0) {
                         clearInterval(timer);
                         deadlinesText[index].innerHTML="Can Open!";
+                        boxes[index].classList.add("box1_open");
                         return;
                     }
                     const days = Math.floor(distance / _day);
@@ -82,6 +79,7 @@
                     const minutes = Math.floor((distance % _hour) / _minute);
                     const seconds = Math.floor((distance % _minute) / _second);
                     deadlinesText[index].innerHTML=`${days}일 ${hours}시간 ${minutes}분 ${seconds}초`;
+                    boxes[index].classList.add("box1_close");
                 },1000);
             })
         }
