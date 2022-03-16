@@ -111,30 +111,41 @@ if (range) {
 //     link.click();
 // }
 function handleSaveClick() {
-    resultCtx.putImageData(ctx.getImageData(0,0,canvas.width,canvas.height),0,0);
-    drawText(resultCanvas);
-    const imgBase64 = resultCanvas.toDataURL('image/png', 'image/octet-stream');
-    const decodImg = atob(imgBase64.split(',')[1]);
-
-    let array = [];
-    for (let i = 0; i < decodImg .length; i++) {
-        array.push(decodImg .charCodeAt(i));
+    const deadline_value=document.querySelector("#deadline_value").value;
+    if(deadline_value==null|| deadline_value==""){
+        alert("오픈 날짜를 입력해주세요!");
+        return;
     }
 
-    const file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
-    const fileName = 'canvas_img_' + new Date().getMilliseconds() + '.jpg';
-    let formData = new FormData();
-    formData.append('file', file, fileName);
-    console.log(formData);
+    const nowDate=new Date().getTime();
+    const targetDate=new Date(deadline_value).getTime();
+    if(targetDate<=nowDate){
+        alert("미래를 선택해주세요");
+        return;
+    }
+
+    resultCtx.putImageData(ctx.getImageData(0,0,canvas.width,canvas.height),0,0);
+    drawText(resultCanvas);
+    const imgDataUrl=resultCanvas.toDataURL('image/png');
+    // const blobBin=atob(imgDataUrl.split(',')[1]);
+    // let array=[];
+    // for(let i=0;i<blobBin.length;i++){
+    //     array.push(blobBin.charCodeAt(i));
+    // }
+    // const file=new Blob([new Uint8Array(array)],{type:'imag/png'});
+    const formData=new FormData();
+    formData.append("content",imgDataUrl);
+    formData.append("deadline",deadline_value);
+
     $.ajax({
-        type: 'post',
-        url: '/',
-        cache: false,
-        data: formData,
+        type:'post',
+        url:'/message/',
+        data:formData,
         processData: false,
-        contentType: false,
-        success: function (data) {
-        alert('Uploaded !!')
+        contentType:false,
+        success:function(data){
+            console.log(data);
+            alert("전송 되었습니다.");
         }
     })
 }
