@@ -5,6 +5,20 @@
     box-sizing:border-box;
 }
 
+.datepicker{
+    position:relative;
+    z-index:99999;
+    text-align: center;
+    border:1px solid #c8c8c8;
+    border-radius:15px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator { 
+    display: none;
+     -webkit-appearance: none; 
+     appearance: none; 
+    }
+
 ul,li{
     margin:0;
     padding:0;
@@ -27,13 +41,16 @@ body{
 
 .container{
     width:100vw;
-    /* max-width:950x; */
     min-height:100vh;
     height:100%;
 
     padding-bottom:50px;
 
-    /* max-height:1024px; */
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+
     margin:auto;
     background-color: rgba(255,255,255,0.3);
 }

@@ -3,7 +3,7 @@ import lombok.Getter;
 
 @Getter
 public class KakaoProfile {
-    private int id;
+    private long id;
     private String connected_at;
     private Properties properties;
     private KakaoAccount kakao_account;
@@ -17,7 +17,8 @@ public class KakaoProfile {
 
     @Getter
     public static class KakaoAccount{
-        private Boolean profile_needs_agreement;
+        private Boolean profile_nickname_needs_agreement;
+        private Boolean profile_image_needs_agreement;
         private Profile profile;
         private Boolean has_email;
         private Boolean email_needs_agreement;
@@ -36,6 +37,7 @@ public class KakaoProfile {
             private String nickname;
             private String thumbnail_image_url;
             private String profile_image_url;
+            private Boolean is_default_image;
         }
     }
 }

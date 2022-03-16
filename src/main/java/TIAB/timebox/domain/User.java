@@ -20,7 +20,7 @@ public class User {
     @Column(name="id")
     private Long id;
     @Column(name="kakao_id")
-    private int kakaoId;
+    private Long kakaoId;
     @Column(name="email")
     private String email;
     @Column(name="img_src")

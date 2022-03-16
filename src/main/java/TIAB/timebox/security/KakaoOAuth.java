@@ -3,6 +3,7 @@ package TIAB.timebox.security;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@Slf4j
 public class KakaoOAuth {
     @Value("${kakao.key}")
     private String appKey;
@@ -81,7 +83,8 @@ public class KakaoOAuth {
         try{
             profile=objectMapper.readValue(resourceProfileResponse.getBody(),KakaoProfile.class);
         } catch (JsonMappingException e) {
-            throw new RuntimeException("user info mapping error");
+            e.printStackTrace();
+//            throw new RuntimeException("user info mapping error");
         } catch (JsonProcessingException e) {
             throw new RuntimeException("user info processing error");
         }

@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface UserDao extends JpaRepository<User, Long> {
     public Optional<User> findByEmail(String email);
-    public Optional<User> findByKakaoId(int kakao_id);
+    public Optional<User> findByKakaoId(Long kakao_id);
 }
