@@ -136,6 +136,8 @@ function handleSaveClick() {
     const formData=new FormData();
     formData.append("content",imgDataUrl);
     formData.append("deadline",deadline_value);
+    formData.append("width",resultCanvas.width);
+    formData.append("height",resultCanvas.height);
 
     $.ajax({
         type:'post',

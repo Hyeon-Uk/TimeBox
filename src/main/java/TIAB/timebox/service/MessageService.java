@@ -22,6 +22,9 @@ public class MessageService {
         message.setUser(user);
         message.setContent(recvMessage.getContent());
         message.setDeadline(recvMessage.getDeadline());
+        message.setWidth(recvMessage.getWidth());
+        message.setHeight(recvMessage.getHeight());
+
         return messageDao.save(message);
     }
 

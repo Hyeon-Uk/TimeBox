@@ -12,7 +12,8 @@ body{
     align-items:center;
     padding-top:40px;
     padding-bottom:40px;
-    background-color:rgba(201,222,207,0.4);
+    background-color:rgba(252,206,226,0.1);
+    /* background-color:rgba(201,222,207,0.4); */
     /* background-image: url("../images/bg.jpg");
     background-repeat: no-repeat;
     background-size:cover; */
@@ -23,7 +24,7 @@ body{
     max-width:500px;
     height:50%;
     max-height:500px;
-    background-color:rgba(255,255,255,0.4);
+    background-color:rgba(255,255,255,0.8);
     display:flex;
     flex-direction: column;
     align-items: center;

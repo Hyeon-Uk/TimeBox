@@ -21,6 +21,12 @@ public class Message {
     @Column(name="content")
     private String content;
 
+    @Column(name="width")
+    private int width;
+
+    @Column(name="height")
+    private int height;
+
     @Temporal(TemporalType.DATE)
     @Column(name="deadline")
     @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")

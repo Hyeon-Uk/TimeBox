@@ -31,10 +31,10 @@
             <input type="date" name="deadline"/>
             <input type="submit"/>
         </form> -->
-        <div class="boxes row">
-            <a href="#" class="box col" th:each="message:${messages}">
+        <div class="boxes row" >
+            <a href="#" th:each="message:${messages}" th:href="@{/message/{id}(id=${message.getId()})}" class="box col" >
                 <input type="hidden" class="deadline-value" th:value="${message.getDeadline()}" value="2022-03-15 00:00:00"/>
-                <span class="deadline">남은 시간 <br> 
+                <span class="deadline">남은 시간 <br>
                     <span class="deadline-text">2020-03-15</span>
                 </span>
             </a>

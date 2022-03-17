@@ -15,4 +15,6 @@ public class MessageDto {
     String content;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     Date deadline;
+    int width;
+    int height;
 }
