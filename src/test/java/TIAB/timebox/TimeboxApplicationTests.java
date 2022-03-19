@@ -6,7 +6,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManager;
 
 @SpringBootTest
-
 class TimeboxApplicationTests {
 	@Test
 	void contextLoads() {

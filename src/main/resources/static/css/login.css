@@ -1,7 +1,14 @@
+@font-face {
+    font-family: "LeeSeoyun";
+    src: url(../font/LeeSeoyun.ttf);
+}
 *{
     margin:0px;
     padding:0px;
-    font-family: 'Nanum Brush Script', cursive;
+    /* font-family: 'Nanum Brush Script', cursive; */
+    box-sizing:border-box;
+    font-family: "LeeSeoyun";
+    font-size:18px;
 }
 
 body{
@@ -12,17 +19,13 @@ body{
     align-items:center;
     padding-top:40px;
     padding-bottom:40px;
-    background-color:rgba(252,206,226,0.1);
-    /* background-color:rgba(201,222,207,0.4); */
-    /* background-image: url("../images/bg.jpg");
-    background-repeat: no-repeat;
-    background-size:cover; */
+    background-color:rgba(243,228,207,0.1);
 }
 
 .form-signin{
     width:80%;
     max-width:500px;
-    height:50%;
+    height:80%;
     max-height:500px;
     background-color:rgba(255,255,255,0.8);
     display:flex;
@@ -32,11 +35,24 @@ body{
     margin:auto;
     border-radius:50px;
 }
+.form-signin > img{
+    width:200px;
+    height:200px;
+    background-position:center;
+    background-size:cover;
+    background-repeat: no-repeat;
+    margin-bottom:15px;
+}
+
 h1{
     font-weight:600;
+    margin-bottom:0px;
+    font-size:40px;
 }
 h5{
+    margin-top:0px;
     margin-top:10px;
+    font-size: 20px;
 }
 
 #button{

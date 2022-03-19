@@ -38,14 +38,13 @@ public class AuthController {
     }
     @GetMapping("/logout")
     public String logoutPage(HttpSession session){
-        log.info("enter logout");
         session.removeAttribute("email");
         session.removeAttribute("kakao_id");
         session.removeAttribute("id");
         return "redirect:/auth/login";
     }
     @GetMapping("/kakao/callback")
-    public String kakaologin(HttpSession session, RedirectAttributes redirectAttributes, @RequestParam("code")String code){
+    public String kakaologin(HttpSession session, @RequestParam("code")String code){
         KakaoProfile profile=kakaoOAuth.getUserInfo(code);
         User user=new User();
         user.setKakaoId(profile.getId());

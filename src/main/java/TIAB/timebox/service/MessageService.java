@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageService {
@@ -31,5 +32,9 @@ public class MessageService {
     public List<Message> getAllMessages(long id){
         User user=userDao.getById(id);
         return messageDao.findAllByUser(user).orElse(null);
+    }
+
+    public Message getByMessageId(long id){
+        return messageDao.findById(id).orElse(null);
     }
 }

@@ -35,8 +35,7 @@ public class HomeController {
         long id=(long) session.getAttribute("id");
         if(email!=null){
             User user= userService.getUser(id);
-            List<Message> messages=messageService.getAllMessages(id);
-            model.addAttribute("messages",messages);
+            model.addAttribute("messages",user.getMessages());
             model.addAttribute("user",user);
         }
         return "home";

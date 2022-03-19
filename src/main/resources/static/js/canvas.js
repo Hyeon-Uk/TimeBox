@@ -148,6 +148,7 @@ function handleSaveClick() {
         success:function(data){
             console.log(data);
             alert("전송 되었습니다.");
+            window.location="/";
         }
     })
 }

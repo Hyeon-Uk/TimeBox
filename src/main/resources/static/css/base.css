@@ -1,0 +1,25 @@
+@font-face {
+    font-family: "LeeSeoyun";
+    src: url(../font/LeeSeoyun.ttf);
+}
+*{
+    margin:0px;
+    padding:0px;
+    /* font-family: 'Nanum Brush Script', cursive; */
+    box-sizing:border-box;
+    font-family: "LeeSeoyun";
+    font-size:18px;
+}
+
+body{
+    width:100vw;
+    min-height:100vh;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    /* background-color:rgba(201,222,207,0.4); */
+    background-color:rgba(243,228,207,0.1);
+    padding-bottom:50px;
+}

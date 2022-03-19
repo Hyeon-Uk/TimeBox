@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface MessageDao extends JpaRepository<Message,Long> {
     public Optional<List<Message>> findAllByUser(User user);
+    public Optional<Message> findById(long id);
 }
