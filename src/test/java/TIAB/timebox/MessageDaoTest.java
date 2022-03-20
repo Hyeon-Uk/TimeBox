@@ -1,6 +1,6 @@
 package TIAB.timebox;
 
-import TIAB.timebox.domain.Message;
+import TIAB.timebox.entity.Message;
 import TIAB.timebox.repository.MessageDao;
 import TIAB.timebox.repository.UserDao;
 import org.junit.Before;
@@ -10,10 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import TIAB.timebox.domain.User;
+import TIAB.timebox.entity.User;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -84,27 +83,11 @@ public class MessageDaoTest {
 
         message1.setUser(savedUser);
         Message savedMessage=messageDao.save(message1);
-        System.out.println("저장된 메세지의 유저 이메일 = "+savedMessage.getUser().getEmail());
+        savedUser.getMessages().add(message1);
         List<Message> saveMessage1=messageDao.findAllByUser(savedUser).orElse(null);
 
-        System.out.println("사이즈 = "+saveMessage1.size());
-        saveMessage1.forEach(e->{
-            System.out.println(e.getId());
-        });
-
-        User saveUser1=userDao.getById(savedUser.getId());
-        System.out.println("유저의 메세지 사이즈 = "+saveUser1.getMessages().size());
-        saveUser1.getMessages().forEach(e->{
-            System.out.println(e.getId());
-        });
-//        assertEquals(saveUser1.getMessages().size(),saveMessage1.size());
-
-//        message2.setUser(savedUser);
-//        messageDao.save(message2);
-//        List<Message> saveMessage2=messageDao.findAllByUser(savedUser).orElse(null);
-//        User saveUser2=userDao.getById(savedUser.getId());
-//        assertEquals(saveUser2.getMessages().size(),saveMessage2.size());
-//
+        User saveUser1=userDao.findById(savedUser.getId()).orElse(null);
+        assertEquals(saveMessage1.size(),saveUser1.getMessages().size());
 
     }
 }

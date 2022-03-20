@@ -28,7 +28,7 @@
         <a style="color:black"class="nav-link" th:href="@{/}">뒤로가기</a>
     </nav>
     <div>
-        오픈날짜 : <input type="date" id="deadline_value" class="datepicker">
+        오픈날짜 : <input type="text" id="deadline_value" class="datepicker">
     </div>
     <div class="canvas-body">
         <canvas id="jsCanvas" class="canvas"></canvas>
@@ -41,11 +41,18 @@
                     <!-- <input type="number" id="font-size" value="20" min="1" max="50"/> -->
                 </div>
                 <textarea cols="50" placeholder="편지에 쓸 내용을 입력해주세요" id="textarea"></textarea>
+                <div class="tools-group">
+                    <input type="radio" class="btn-check" name="options" id="pen" autocomplete="off" checked>
+                    <label id="pen-label" class="btn btn-secondary" for="pen">&nbsp;&nbsp;&nbsp;펜&nbsp;&nbsp;&nbsp;</label>
+                    
+                    <input type="radio" class="btn-check" name="options" id="eraser" autocomplete="off">
+                    <label id="eraser-label" class="btn" for="eraser">지우개</label>
+                </div>
                 <div>
                     붓 색 : <input type="color" id="colorPicker"/>
                 </div>
                 <div class="controls__range">
-                    붓 크기 : <input type="range" id="jsRange" min="0.1" max="5.0" value="2.5" step="0.1" />
+                    붓,지우개 크기 : <input type="range" id="jsRange" min="1" max="50" value="10" step="0.1" />
                 </div>
             </div>
         </div>
@@ -55,6 +62,7 @@
     </div>
 </div>
 </div>
+
 <script src="../static/js/canvas.js" th:src="@{/js/canvas.js}"></script>
 <script src="../static/js/datepicker.js" th:src="@{/js/datepicker.js}"></script>
 </body>

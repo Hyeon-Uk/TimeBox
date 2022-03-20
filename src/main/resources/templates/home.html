@@ -24,7 +24,8 @@
         <div class="profile">
             <img class="profile-image" src="/static/images/bg.jpg" th:src="${user.getImgSrc()}">
         </div>
-
+        <div class="error" th:if="${param.error}" th:text="${param.error}">error
+        </div>
 
         
          <!-- <form action="/message/" method="post">
@@ -41,6 +42,48 @@
             </a>
         </div>
     </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-app.js";
+        import {getMessaging,getToken,onMessage} from "https://www.gstatic.com/firebasejs/9.6.9/firebase-messaging.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.9/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCoW8Zcd9wcWiVL0IESce0WJDNCCvOFaxc",
+          authDomain: "timebox-f5493.firebaseapp.com",
+          projectId: "timebox-f5493",
+          storageBucket: "timebox-f5493.appspot.com",
+          messagingSenderId: "664820195390",
+          appId: "1:664820195390:web:ec15aeba175ab5a6fc316f",
+          measurementId: "G-B1S8TL0W14"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const messaging=getMessaging();
+        getToken(messaging,{
+            vapidKey:"BPElrrtMWx98U-1s_u4PkfuS_DFS3S85BCDNdFE1-LM4jRj10DLHt2AINJ7cG0HwQrdD5pSCrAsXLJXPVUmxN64",
+        }).then((currentToken) => {
+            if (currentToken) {
+            // Send the token to your server and update the UI if necessary
+            // ...
+            console.log(currentToken);
+            } else {
+            // Show permission request UI
+            console.log(
+                "No registration token available. Request permission to generate one."
+            );}
+        })
+        .catch((err) => {
+            console.log("An error occurred while retrieving token. ", err);
+            // ...
+        });
+    </script>
     <script>
         //타이머 참조
         //https://wonpaper.tistory.com/319

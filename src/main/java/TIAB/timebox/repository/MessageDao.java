@@ -1,6 +1,6 @@
 package TIAB.timebox.repository;
-import TIAB.timebox.domain.User;
-import TIAB.timebox.domain.Message;
+import TIAB.timebox.entity.User;
+import TIAB.timebox.entity.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

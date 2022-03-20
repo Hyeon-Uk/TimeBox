@@ -42,7 +42,7 @@ textCtx.fillStyle="black";
 resultCanvas.width=vw(70);
 resultCanvas.height=vh(70);
 
-ctx.strokeStyle = "#2c2c2c"
+ctx.strokeStyle = "#000000"
 ctx.lineWidth = 0.5;
 ctx.fillStyle = "white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -50,16 +50,20 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 let painting = false;
 
 function startPainting(event) {
+    BodyScrollDisAble();
+
     painting = true;
 }
 
 function stopPainting(event) {
+    BodyScrollAble();
     painting = false;
 }
 
 function onMouseMove(event) {
     const x = event.offsetX;
     const y = event.offsetY;
+    textarea.value=x+","+y;
     if(!painting) {
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -69,21 +73,71 @@ function onMouseMove(event) {
     }
 }
 
+// function getMobilePosition(evt){
+//     var x = evt.originalEvent.changedTouches[0].pageX - canvas.offset().left;
+//     var y = evt.originalEvent.changedTouches[0].pageY - canvas.offset().top;
+//     return {X:x, Y:y};
+//  }; 
+function getMobilePosition(evt){
+    var x = evt.changedTouches[0].pageX-(window.pageYOffset + canvas.getBoundingClientRect().left);
+
+    var y = evt.changedTouches[0].pageY-(window.pageYOffset + canvas.getBoundingClientRect().top);
+
+    return {X:x, Y:y};
+ }; 
+
+function onTouchMove(event){
+    const x=getMobilePosition(event).X;
+    const y=getMobilePosition(event).Y;
+    textarea.value=`${x} / ${y}`;
+    if(!painting) {
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+    } else {
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+}
+
+function startPaintingMobile(event){
+    BodyScrollDisAble();
+    const x=getMobilePosition(event).X;
+    const y=getMobilePosition(event).Y;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    painting = true;
+}
+
+function stopPaintingMobile(event){
+    BodyScrollAble();
+    const x=getMobilePosition(event).X;
+    const y=getMobilePosition(event).Y;
+    ctx.lineTo(x, y);
+    ctx.stroke();
+    painting = false;
+}
+
+ function BodyScrollDisAble(){
+    document.body.style.overflow = "hidden"; 
+ };
+ function BodyScrollAble(){  
+    document.body.style.overflow = "auto"; 
+ };
+
 if (canvas) {
     canvas.addEventListener("mousemove", onMouseMove);
     canvas.addEventListener("mousedown", startPainting);
     canvas.addEventListener("mouseup", stopPainting);
     canvas.addEventListener("mouseleave", stopPainting);
 
-    canvas.addEventListener("touchstart",startPainting);
-    canvas.addEventListener("touchend",stopPainting);
-    canvas.addEventListener("touchmove",onMouseMove);
+    canvas.addEventListener("touchstart",startPaintingMobile);
+    canvas.addEventListener("touchend",stopPaintingMobile);
+    canvas.addEventListener("touchmove",onTouchMove);
 }
 
 //color pick
 function handleColorClick(event) {
     const color = colors.value;
-    console.log(color);
     ctx.strokeStyle = color;
 }
 
@@ -200,4 +254,27 @@ textarea.addEventListener("keyup",e=>{
 })
 fontSize.addEventListener("change",e=>{
     drawText(textCanvas);
+})
+
+//펜 지우개 toggle button
+const radioPen=document.querySelector("#pen");
+const radioEraser=document.querySelector("#eraser");
+const labelPen=document.querySelector("#pen-label")
+const labelEraser=document.querySelector("#eraser-label");
+
+
+radioPen.addEventListener("click",e=>{
+    labelPen.classList.add("btn-secondary");
+    labelEraser.classList.remove("btn-secondary");
+    radioEraser.checked=false;
+    radioPen.checked=true;
+    ctx.strokeStyle=colors.value;
+})
+
+radioEraser.addEventListener("click",e=>{
+    labelEraser.classList.add("btn-secondary");
+    labelPen.classList.remove("btn-secondary");
+    radioPen.checked=false;
+    radioEraser.checked=true;
+    ctx.strokeStyle="#ffffff"
 })

@@ -9,12 +9,13 @@ input[type=number]{
 textarea{
     all:unset;
     border-radius:15px;
-
+    width:70vw;
+    max-width:960px;
     border:1px solid #c8c8c8;
     padding:10px;
 }
 
-textarea::-webkit-scrollbar {
+/* textarea::-webkit-scrollbar {
     width: 10px;
 }
 textarea::-webkit-scrollbar-thumb {
@@ -27,7 +28,7 @@ textarea::-webkit-scrollbar-track {
     background-color: grey;
     border-radius: 10px;
     box-shadow: inset 0px 0px 5px white;
-}
+} */
 
 .canvas-body {
     /* background-color: #f6f9fc; */

@@ -1,6 +1,6 @@
 package TIAB.timebox.service;
-import TIAB.timebox.domain.User;
-import TIAB.timebox.domain.Message;
+import TIAB.timebox.entity.User;
+import TIAB.timebox.entity.Message;
 import TIAB.timebox.dto.MessageDto;
 import TIAB.timebox.repository.MessageDao;
 import TIAB.timebox.repository.UserDao;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class MessageService {
@@ -18,7 +17,7 @@ public class MessageService {
     private MessageDao messageDao;
 
     public Message save(long id, MessageDto recvMessage){
-        User user=userDao.getById(id);
+        User user=userDao.findById(id).orElse(null);
         Message message=new Message();
         message.setUser(user);
         message.setContent(recvMessage.getContent());
@@ -26,11 +25,12 @@ public class MessageService {
         message.setWidth(recvMessage.getWidth());
         message.setHeight(recvMessage.getHeight());
 
+        user.getMessages().add(message);
         return messageDao.save(message);
     }
 
     public List<Message> getAllMessages(long id){
-        User user=userDao.getById(id);
+        User user=userDao.findById(id).orElse(null);
         return messageDao.findAllByUser(user).orElse(null);
     }
 
