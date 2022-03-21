@@ -21,7 +21,7 @@ public class Scheduler {
     @Autowired
     private Notification notification;
 
-    @Scheduled(cron="0 0 0 * * *",zone="Asia/Seoul")
+    @Scheduled(cron="0 0 9 * * *",zone="Asia/Seoul")
     public void sendCompleteMessage(){
         log.info("Send Message Start!");
         List<Message> messages=messageDao.findAllByDeadline(new Date()).orElse(null);
