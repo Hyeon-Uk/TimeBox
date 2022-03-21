@@ -16,20 +16,29 @@
     <div class="container">
         <nav class="nav justify-content-between">
             <a class="nav-link" href="#" th:href="@{/}">뒤로가기</a>
+            <span class="nav-link downloadBtn" >다운로드</span>
         </nav>
         <div class="canvas-body">
             <canvas class="canvas" width="500px" th:width="${width}" height="500px" th:height="${height}"></canvas>
         </div>
     </div>
-        <script th:inline="javascript">
-            const canvas=document.querySelector("canvas");
-            const ctx=canvas.getContext("2d");
-            const image=new Image();
-            const con=[[${content}]];
-            image.src=`${con}`;
-            image.onload=e=>{
-                ctx.drawImage(image,0,0)
-            }
-            </script>
+    <script th:inline="javascript">
+        const canvas=document.querySelector("canvas");
+        const ctx=canvas.getContext("2d");
+        const image=new Image();
+        const con=[[${content}]];
+        image.src=`${con}`;
+        image.onload=e=>{
+            ctx.drawImage(image,0,0);
+        }
+        document.querySelector(".downloadBtn").addEventListener("click",(event)=>{
+            const link=document.createElement("a");
+            link.setAttribute('download','javascript.png');
+            link.setAttribute('href',canvas.toDataURL('image/png'));
+            link.click();
+            alert("click");
+        });
+            
+    </script>
 </body>
 </html>
