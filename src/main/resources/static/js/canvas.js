@@ -218,11 +218,13 @@ if (saveBtn) {
     saveBtn.addEventListener("click", handleSaveClick);
 }
 
+//load font
+const f=new FontFace('LeeSeoyun','url(../font/LeeSeoyun.ttf)');
 
 //text canvas
 const drawText=(targetCanvas)=>{
     let targetCtx=targetCanvas.getContext("2d");
-    targetCtx.font=`${fontSize.value}px bold` ;
+    targetCtx.font=`${fontSize.value}px LeeSeoyun` ;
     if(targetCanvas!==resultCanvas) targetCtx.clearRect(0,0,targetCanvas.width,targetCanvas.height);
     const textList=textarea.value.split('\n');
     const xOffset=fontSize.value;
