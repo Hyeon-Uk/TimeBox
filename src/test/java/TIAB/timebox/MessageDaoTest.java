@@ -88,6 +88,26 @@ public class MessageDaoTest {
 
         User saveUser1=userDao.findById(savedUser.getId()).orElse(null);
         assertEquals(saveMessage1.size(),saveUser1.getMessages().size());
-
     }
+
+    @Test
+    public void getAllByDeadline(){
+        User saved=userDao.save(user1);
+        message1.setUser(saved);//어제꺼
+        message2.setUser(saved);
+        message3.setUser(saved);
+        message4.setUser(saved);
+        message5.setUser(saved);
+
+        messageDao.save(message1);//어제꺼
+        messageDao.save(message2);
+        messageDao.save(message3);
+        messageDao.save(message4);
+        messageDao.save(message5);
+
+        Date now=new Date();
+        List<Message> messages=messageDao.findAllByDeadline(now).orElse(null);
+        assertEquals(messages.size(),4);
+    }
+
 }
