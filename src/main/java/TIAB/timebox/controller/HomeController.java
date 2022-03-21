@@ -31,10 +31,4 @@ public class HomeController {
         }
         return "home";
     }
-
-    @GetMapping("/message")
-    public String makeMessage(Model model){
-        return "make";
-    }
-
 }
