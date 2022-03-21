@@ -16,7 +16,7 @@
     <div class="container">
         <nav class="nav justify-content-between">
             <a class="nav-link" href="#" th:href="@{/}">뒤로가기</a>
-            <span class="nav-link downloadBtn" >다운로드</span>
+            <a class="nav-link downloadBtn" >다운로드</a>
         </nav>
         <div class="canvas-body">
             <canvas class="canvas" width="500px" th:width="${width}" height="500px" th:height="${height}"></canvas>
@@ -33,10 +33,11 @@
         }
         document.querySelector(".downloadBtn").addEventListener("click",(event)=>{
             const link=document.createElement("a");
-            link.setAttribute('download','javascript.png');
+            const now=new Date();
+            const filename=`${now.getFullYear()}${now.getMonth()}${now.getDate()}${now.getHours()}${now.getMinutes()}${now.getSeconds()}`;
+            link.setAttribute('download',`${filename}.png`);
             link.setAttribute('href',canvas.toDataURL('image/png'));
             link.click();
-            alert("click");
         });
             
     </script>

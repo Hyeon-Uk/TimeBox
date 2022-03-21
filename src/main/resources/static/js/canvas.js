@@ -63,7 +63,6 @@ function stopPainting(event) {
 function onMouseMove(event) {
     const x = event.offsetX;
     const y = event.offsetY;
-    textarea.value=x+","+y;
     if(!painting) {
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -89,7 +88,6 @@ function getMobilePosition(evt){
 function onTouchMove(event){
     const x=getMobilePosition(event).X;
     const y=getMobilePosition(event).Y;
-    textarea.value=`${x} / ${y}`;
     if(!painting) {
         ctx.beginPath();
         ctx.moveTo(x, y);
@@ -201,7 +199,7 @@ function handleSaveClick() {
         contentType:false,
         success:function(data){
             console.log(data);
-            alert("전송 되었습니다.");
+            alert("오픈시간이되면 이메일로 알려드리겠습니다😀");
             window.location="/";
         }
     })
