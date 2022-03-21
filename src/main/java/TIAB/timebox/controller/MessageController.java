@@ -26,6 +26,11 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
+    @GetMapping("/")
+    public String makeMessage(Model model){
+        return "make";
+    }
+
     @PostMapping("/")
     public String sendMessage(HttpSession session, MessageDto message) throws IOException {
         long userId=(Long)session.getAttribute("id");
