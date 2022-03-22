@@ -6,5 +6,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface Notification {
-    public void sendNotification(List<Message> message);
+    public void sendNotification(List<Message> messages);
 }
