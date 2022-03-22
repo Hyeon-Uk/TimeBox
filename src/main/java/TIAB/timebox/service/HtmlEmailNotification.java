@@ -26,7 +26,7 @@ public class HtmlEmailNotification implements Notification{
             "            <img src=\"https://github.com/Hyeon-Uk/TimeBox/blob/master/src/main/resources/static/images/box1_open_2.png?raw=true\">\n" +
             "        </div>\n" +
             "        <div style=\"font-size: 18px;\">맡겨두셨던 편지의 시간이 끝났습니다.</div>\n" +
-            "        <a href=\"http://timebox.kro.kr/\" style=\"text-decoration: none;color: rgb(70,34,19);background-color: #f8efe1;width: 150px;height: 50px;text-align: center;display: flex;flex-direction: column;align-items: center;justify-content: center;border-radius: 15px;margin-top: 15px;\">찾으러가기</a>\n" +
+            "        <a href=\"http://www.timebox.kro.kr/\" style=\"text-decoration: none;color: rgb(70,34,19);background-color: #f8efe1;width: 150px;height: 50px;text-align: center;display: flex;flex-direction: column;align-items: center;justify-content: center;border-radius: 15px;margin-top: 15px;\">찾으러가기</a>\n" +
             "    </div>";
     private static final String SUBJECT="[TimeBox] 메세지가 도착했습니다.";
 
