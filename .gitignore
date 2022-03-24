@@ -36,7 +36,7 @@ out/
 ### VS Code ###
 .vscode/
 
-
+/src/main/resources/application.properties
 /src/main/resources/application-SECURITY.properties
 /src/main/resources/application-SECURITY-LOCAL.properties
 /src/main/resources/application-KEY.properties
