@@ -20,7 +20,7 @@ public class HomeController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping("/")
+    @GetMapping
     public String home(HttpSession session, Model model){
         String email= (String) session.getAttribute("email");
         long id=(long) session.getAttribute("id");
