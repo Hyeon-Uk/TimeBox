@@ -1,8 +1,9 @@
 package TIAB.timebox;
 
 import TIAB.timebox.entity.Message;
-import TIAB.timebox.repository.MessageDao;
-import TIAB.timebox.repository.UserDao;
+import TIAB.timebox.entity.User;
+import TIAB.timebox.repository.MessageRepository;
+import TIAB.timebox.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,21 +11,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import TIAB.timebox.entity.User;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Date;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @Transactional
-public class MessageDaoTest {
+public class MessageRepositoryTest {
 
     @Autowired
-    private MessageDao messageDao;
+    private MessageRepository messageRepository;
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     User user1,user2,user3;
     Message message1,message2,message3,message4,message5;
@@ -79,35 +80,46 @@ public class MessageDaoTest {
 
     @Test
     public void makeMessage(){
-        User savedUser=userDao.save(user1);
+        User savedUser=userRepository.save(user1);
 
         message1.setUser(savedUser);
-        Message savedMessage=messageDao.save(message1);
+        Message savedMessage= messageRepository.save(message1);
         savedUser.getMessages().add(message1);
-        List<Message> saveMessage1=messageDao.findAllByUser(savedUser).orElse(null);
+        List<Message> saveMessage1= messageRepository.findAllByUser(savedUser).orElse(null);
 
-        User saveUser1=userDao.findById(savedUser.getId()).orElse(null);
+        User saveUser1=userRepository.findById(savedUser.getId()).orElse(null);
         assertEquals(saveMessage1.size(),saveUser1.getMessages().size());
     }
 
     @Test
     public void getAllByDeadline(){
-        User saved=userDao.save(user1);
+        User saved=userRepository.save(user1);
         message1.setUser(saved);//어제꺼
         message2.setUser(saved);
         message3.setUser(saved);
         message4.setUser(saved);
         message5.setUser(saved);
 
-        messageDao.save(message1);//어제꺼
-        messageDao.save(message2);
-        messageDao.save(message3);
-        messageDao.save(message4);
-        messageDao.save(message5);
+        messageRepository.save(message1);//어제꺼
+        messageRepository.save(message2);
+        messageRepository.save(message3);
+        messageRepository.save(message4);
+        messageRepository.save(message5);
 
         Date now=new Date();
-        List<Message> messages=messageDao.findAllByDeadline(now).orElse(null);
+        List<Message> messages= messageRepository.findAllByDeadline(now).orElse(null);
         assertEquals(messages.size(),4);
+    }
+
+
+    @Test
+    public void checkDeadline(){
+        List<Message> messages= messageRepository.findAll();
+        List<Message> deadlines= messageRepository.findAllByDeadline(new Date()).orElse(null);
+        System.out.println(new Date().toString());
+        deadlines.forEach(message->{
+            System.out.println(message.getDeadline().toString());
+        });
     }
 
 }

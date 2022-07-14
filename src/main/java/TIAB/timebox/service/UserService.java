@@ -1,7 +1,7 @@
 package TIAB.timebox.service;
 
 import TIAB.timebox.entity.User;
-import TIAB.timebox.repository.UserDao;
+import TIAB.timebox.repository.UserRepository;
 import TIAB.timebox.security.KakaoOAuth;
 import TIAB.timebox.security.KakaoProfile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class UserService{
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
     private KakaoOAuth kakaoOAuth;
@@ -27,18 +27,18 @@ public class UserService{
     }
 
     public User save(User user) {
-        User isUser=userDao.findByKakaoId(user.getKakaoId()).orElse(null);
+        User isUser=userRepository.findByKakaoId(user.getKakaoId()).orElse(null);
         if(isUser!=null){
             user.setId(isUser.getId());
         }
-        return userDao.save(user);
+        return userRepository.save(user);
     }
 
     public User getUser(long id) {
-        return userDao.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     public List<User> getAllUsers() {
-        return userDao.findAll();
+        return userRepository.findAll();
     }
 }

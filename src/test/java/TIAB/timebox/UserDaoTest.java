@@ -1,7 +1,7 @@
 package TIAB.timebox;
 
 import TIAB.timebox.entity.User;
-import TIAB.timebox.repository.UserDao;
+import TIAB.timebox.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserDaoTest {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     private User user1,user2,user3;
 
@@ -44,51 +44,51 @@ class UserDaoTest {
 
     @Test
     public void saveUser(){
-        int nowCnt=userDao.findAll().size();
+        int nowCnt=userRepository.findAll().size();
 
-        User saved1=userDao.save(user1);
-        List<User> users1=userDao.findAll();
+        User saved1=userRepository.save(user1);
+        List<User> users1=userRepository.findAll();
         assertEquals(users1.size(),1+nowCnt);
         assertEquals(saved1.getKakaoId(),user1.getKakaoId());
 
-        User saved2=userDao.save(user2);
-        List<User> users2=userDao.findAll();
+        User saved2=userRepository.save(user2);
+        List<User> users2=userRepository.findAll();
         assertEquals(users2.size(),2+nowCnt);
         assertEquals(saved2.getKakaoId(),user2.getKakaoId());
 
-        User saved3=userDao.save(user3);
-        List<User> users3=userDao.findAll();
+        User saved3=userRepository.save(user3);
+        List<User> users3=userRepository.findAll();
         assertEquals(users3.size(),3+nowCnt);
         assertEquals(saved3.getKakaoId(),user3.getKakaoId());
     }
 
     @Test
     public void changeEmail(){
-        User saved1=userDao.save(user1);
+        User saved1=userRepository.save(user1);
         assertEquals(saved1.getEmail(),user1.getEmail());
 
-        User findUser1=userDao.findById(saved1.getId()).orElse(null);
+        User findUser1=userRepository.findById(saved1.getId()).orElse(null);
         findUser1.setEmail("four@naver.com");
-        User savedChange=userDao.save(findUser1);
+        User savedChange=userRepository.save(findUser1);
 
         assertEquals(findUser1,savedChange);
     }
 
     @Test
     public void getByEmail(){
-        userDao.save(user1);
-        userDao.save(user2);
-        userDao.save(user3);
+        userRepository.save(user1);
+        userRepository.save(user2);
+        userRepository.save(user3);
 
-        User saved1=userDao.findByEmail(user1.getEmail()).orElse(null);
-        User saved2=userDao.findByEmail(user2.getEmail()).orElse(null);
-        User saved3=userDao.findByEmail(user3.getEmail()).orElse(null);
+        User saved1=userRepository.findByEmail(user1.getEmail()).orElse(null);
+        User saved2=userRepository.findByEmail(user2.getEmail()).orElse(null);
+        User saved3=userRepository.findByEmail(user3.getEmail()).orElse(null);
 
         assertEquals(user1,saved1);
         assertEquals(user2,saved2);
         assertEquals(user3,saved3);
 
-        User notFindUser=userDao.findByEmail("noemail@naver.com").orElse(null);
+        User notFindUser=userRepository.findByEmail("noemail@naver.com").orElse(null);
         assertNull(notFindUser);
     }
 
