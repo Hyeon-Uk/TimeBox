@@ -1,8 +1,7 @@
-package TIAB.timebox.service;
+package TIAB.timebox.service.notification;
 
-import TIAB.timebox.entity.Message;
+import TIAB.timebox.entity.message.Message;
 
-import java.util.Date;
 import java.util.List;
 
 public interface Notification {

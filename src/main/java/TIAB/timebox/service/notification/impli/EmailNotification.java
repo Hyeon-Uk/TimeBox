@@ -1,6 +1,7 @@
-package TIAB.timebox.service;
+package TIAB.timebox.service.notification.impli;
 
-import TIAB.timebox.entity.Message;
+import TIAB.timebox.entity.message.Message;
+import TIAB.timebox.service.notification.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EmailNotification implements Notification{
+public class EmailNotification implements Notification {
 
     @Autowired
     private JavaMailSender javaMailSender;

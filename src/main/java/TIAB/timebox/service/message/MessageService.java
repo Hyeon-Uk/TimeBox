@@ -1,8 +1,8 @@
-package TIAB.timebox.service;
+package TIAB.timebox.service.message;
 
 import TIAB.timebox.dto.MessageDto;
-import TIAB.timebox.entity.Message;
-import TIAB.timebox.entity.User;
+import TIAB.timebox.entity.message.Message;
+import TIAB.timebox.entity.user.User;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

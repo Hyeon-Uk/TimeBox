@@ -1,6 +1,6 @@
 package TIAB.timebox;
 
-import TIAB.timebox.entity.User;
+import TIAB.timebox.entity.user.User;
 import TIAB.timebox.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

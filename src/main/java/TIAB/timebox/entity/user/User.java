@@ -1,5 +1,7 @@
-package TIAB.timebox.entity;
+package TIAB.timebox.entity.user;
 
+import TIAB.timebox.entity.BaseEntity;
+import TIAB.timebox.entity.message.Message;
 import lombok.*;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name="user")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

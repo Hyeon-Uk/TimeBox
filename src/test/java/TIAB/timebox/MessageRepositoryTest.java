@@ -1,7 +1,7 @@
 package TIAB.timebox;
 
-import TIAB.timebox.entity.Message;
-import TIAB.timebox.entity.User;
+import TIAB.timebox.entity.message.Message;
+import TIAB.timebox.entity.user.User;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
 import org.junit.Before;

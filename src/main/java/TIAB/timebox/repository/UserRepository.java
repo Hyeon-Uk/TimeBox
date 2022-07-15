@@ -1,6 +1,6 @@
 package TIAB.timebox.repository;
 
-import TIAB.timebox.entity.User;
+import TIAB.timebox.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

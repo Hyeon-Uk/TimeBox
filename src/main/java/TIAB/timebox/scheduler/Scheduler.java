@@ -1,8 +1,8 @@
 package TIAB.timebox.scheduler;
 
-import TIAB.timebox.entity.Message;
+import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.repository.MessageRepository;
-import TIAB.timebox.service.Notification;
+import TIAB.timebox.service.notification.Notification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

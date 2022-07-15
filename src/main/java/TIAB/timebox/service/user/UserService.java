@@ -1,6 +1,6 @@
-package TIAB.timebox.service;
+package TIAB.timebox.service.user;
 
-import TIAB.timebox.entity.User;
+import TIAB.timebox.entity.user.User;
 import TIAB.timebox.repository.UserRepository;
 import TIAB.timebox.security.KakaoOAuth;
 import TIAB.timebox.security.KakaoProfile;

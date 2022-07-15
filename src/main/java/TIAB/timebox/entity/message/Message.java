@@ -1,5 +1,7 @@
-package TIAB.timebox.entity;
+package TIAB.timebox.entity.message;
 
+import TIAB.timebox.entity.BaseEntity;
+import TIAB.timebox.entity.user.User;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -10,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name="message")
-public class Message extends BaseEntity{
+public class Message extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")

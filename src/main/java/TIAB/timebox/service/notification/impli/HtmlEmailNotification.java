@@ -1,25 +1,22 @@
-package TIAB.timebox.service;
+package TIAB.timebox.service.notification.impli;
 
-import TIAB.timebox.entity.Message;
+import TIAB.timebox.entity.message.Message;
+import TIAB.timebox.service.notification.Notification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Address;
 import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Primary
 @Slf4j
-public class HtmlEmailNotification implements Notification{
+public class HtmlEmailNotification implements Notification {
 
     public final static String TEMPLATE="    <div style=\"display: flex;flex-direction: column;align-items: center;justify-content: center;background-color: rgba(243,228,207,0.1);\">\n" +
             "        <div style=\"font-size: 18px;\">\n" +
