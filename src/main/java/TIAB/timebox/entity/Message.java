@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Table(name="message")
-public class Message {
+public class Message extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
