@@ -24,6 +24,7 @@ public class HomeController {
     public String home(HttpSession session, Model model){
         String email= (String) session.getAttribute("email");
         long id=(long) session.getAttribute("id");
+        log.info("email = {}, id={}",email,id);
         if(email!=null){
             User user= userService.getUser(id);
             model.addAttribute("messages",user.getMessages());
