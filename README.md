@@ -1,11 +1,11 @@
 
 > # 🏢주소
-http://www.timebox.kro.kr/
-> # 벨로그 
-https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
+http://www.timebox.kro.kr/ (비용상의 이유로 서버내렸습니다,)
+# 깃허브
+https://github.com/Hyeon-Uk/TimeBox
 
 
-# 🚩_ About TimeBox_
+# 🚩**_ About TimeBox_**
 
 
 **어렸을적에 모두들 타임캡슐을 만들어본적이 있으실겁니다.**
@@ -17,7 +17,7 @@ https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 - 그런뒤 박스에 담아 보관해주시면 됩니다😀
 - 시간이 다되면, 카카오계정에 등록된 이메일을 통해 알림을 보내드리겠습니다.
 * * *
-# ❓ **_왜 이런 프로젝트를 만들었나요?_** 
+# ❓ **_왜 이런 프로젝트를 만들었나요?_**
 **옛날에 타임캡슐을 만들면서 크면 어떻게 되어있으면 좋겠다! 라는 내용도 담았던 기억이 있습니다. 생각해보면 옛날의 제가 어떤 희망을 품은 타임캡슐을 만들었는지 기억도 잘 나지않고, 어디에 묻었는지 기억도 나지 않습니다...**
 
 **그래서 현재를 기준으로 미래의 나에게 보내주는 편지를 작성해서 미래의 내가 꼭 받아볼 수 있는 서비스를 제작해보면 어떨까? 라는 생각에 TimeBox프로젝트를 시작했습니다.**
@@ -28,7 +28,7 @@ https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 # 🙋‍♂️ Members
 **김현욱(백엔드/프론트) [GitHub](https://github.com/Hyeon-Uk)**
 
-**채퐁(로고 및 도트) [Instagram](https://www.instagram.com/chaepong_/)**
+**채퐁(로고 및 도트) [Instagram](https://www.instagram.com/chaepong_/) **
 
 * * *
 
@@ -47,6 +47,8 @@ https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 - EC2
 - RDS (MySql)
 - javaMail
+- Spring Security (22.07.17 추가)
+- Spring Security OAuth2.0 (22.07.17 추가)
 
 * * *
 
@@ -78,17 +80,17 @@ https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 - 오픈하고싶은 날짜를 입력, 혹은 달력에서 선택할 수 있습니다.
 - 아래에 있는 툴을 이용해서 폰트와 붓의 크기, 붓의 색을 고를 수 있습니다.
 - 캔버스에 그림을 그릴 수 있습니다. 글씨와는 별개 캔버스이므로, 지워도 글자는 지워지지 않습니다.
-![](https://images.velog.io/images/khu147/post/58b8889f-d937-452c-bfea-6c41ce173e67/image.png)
+  ![](https://images.velog.io/images/khu147/post/58b8889f-d937-452c-bfea-6c41ce173e67/image.png)
 - TextArea를 통해 글도 쓸 수 있습니다.
-![](https://images.velog.io/images/khu147/post/1b0da13c-5188-4ead-8648-b0f6ae960db2/image.png)
+  ![](https://images.velog.io/images/khu147/post/1b0da13c-5188-4ead-8648-b0f6ae960db2/image.png)
 - save를 누르면 저장이됩니다.
-![](https://images.velog.io/images/khu147/post/0e82ec82-b6b6-4ba4-b7f4-119ed944b4ba/image.png)
+  ![](https://images.velog.io/images/khu147/post/0e82ec82-b6b6-4ba4-b7f4-119ed944b4ba/image.png)
 
 - 추가된 박스![](https://images.velog.io/images/khu147/post/7db832cb-dcc0-44d5-a3fd-ce4f180df792/image.png)
 ***
 ### 4. Message Page
 - 보여드리기위해 아까 만든 편지를 살짝 건드려서 시간이 지났다고 해보자...
-![](https://images.velog.io/images/khu147/post/16a7be39-9c40-4287-9854-5de7a49f76df/image.png)
+  ![](https://images.velog.io/images/khu147/post/16a7be39-9c40-4287-9854-5de7a49f76df/image.png)
 
 - 다운로드를 누르면 아래와같이 저장이됩니다.![](https://images.velog.io/images/khu147/post/3edb1162-5a6c-4b35-8aea-7f9e2fe369a3/image.png)
 
@@ -105,13 +107,13 @@ https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 
 ### 3. 시간이 다되면 알려주는 기능
 
-처음에는 카카오계정으로 로그인을 한 뒤, 채널을 통해 사용자들에게 시간이 다되었다는 메세지를 보내주고 싶었지만, 채널과 카카오 어플리케이션을 연동하는데 사업자 번호가 필요해서 이는 포기했습니다. 
+처음에는 카카오계정으로 로그인을 한 뒤, 채널을 통해 사용자들에게 시간이 다되었다는 메세지를 보내주고 싶었지만, 채널과 카카오 어플리케이션을 연동하는데 사업자 번호가 필요해서 이는 포기했습니다.
 
 그럼 다른 방법이 무엇이 있을지 생각을 해보니 카카오 로그인을 하면서 이메일을 받을 수 있는데, 이 이메일을 이용해서 사용자들에게 이메일로 알려주면 어떨까? 라는 생각에 이메일을 채택했습니다.
 
 ![](https://images.velog.io/images/khu147/post/2178b7f6-832f-4e4d-b0c8-96622c0818f8/image.png)
 
-스케쥴링을 이용해서 매일 00:00분에 완료된 메세지를 전부 찾은 뒤, JavaMail을 이용해서 메일을 전송하도록 만들었습니다. 
+스케쥴링을 이용해서 매일 00:00분에 완료된 메세지를 전부 찾은 뒤, JavaMail을 이용해서 메일을 전송하도록 만들었습니다.
 
 ### 4. 유저 관리
 접속시간이 긴 서비스가 아니라서 서버에 부담이 덜하고, Thymeleaf를 이용하여 Server Side Rendering을 하기때문에, JWT보단 Session을 이용해서 유저관리를 해주는것이 좋다고 생각을해서 Session을 이용했습니다.
@@ -122,11 +124,11 @@ https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 
 ***
 # 후기
-   
-   ![image](https://user-images.githubusercontent.com/43038815/159690116-15e00228-36c5-478d-8913-1dd1d1309dd6.png)   
-처음으로 혼자서 배포까지 한 프로젝트입니다. 프론트와 백을 모두 혼자서하다보니 역시나 너무 힘들었습니다. 더군다나 디자인감각도 없어서 더 힘들었습니다.      
-![](https://images.velog.io/images/khu147/post/49a4278e-b557-4c0c-9ed9-1d5b0b940193/image.png)   
 
+![](https://images.velog.io/images/khu147/post/6222361c-99d7-4024-9a45-ab76b5ea6f4e/image.png)
+
+처음으로 혼자서 배포까지 한 프로젝트입니다. 프론트와 백을 모두 혼자서하다보니 역시나 너무 힘들었습니다. 더군다나 디자인감각도 없어서 더 힘들었습니다.
+![](https://images.velog.io/images/khu147/post/49a4278e-b557-4c0c-9ed9-1d5b0b940193/image.png)
 처음 css를 이용해서 만든 박스 디자인이였는데 , 친구한테 보여주니 자신이 도트를 찍어주겠다면서 파일을 건네주었습니다....
 
 프론트는 정말 주변의 많은사람들에게 조언과 피드백을 받는등의 도움을 받아서 완성을 했습니다.
@@ -135,7 +137,7 @@ https://velog.io/@khu147/TimeBox-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8
 JdbcTemplate을 사용하다가 Jpa를 사용하니 개발하며 많은 장점을 느낄 수 있었습니다.
 1. 유지보수가 간편하다.
 2. 쿼리를 짤 필요가 없어서 서비스 로직에 집중할 수 있었다.
-크게는 위에 두가지고 세세한 장점들을 느낄 수 있었습니다.
+   크게는 위에 두가지고 세세한 장점들을 느낄 수 있었습니다.
 
 다음으로 느낀점은 TDD의 중요성을 느꼈습니다. 이 프로젝트는 TDD가아닌 개발을 하며 테스트코드를 작성해나갔는데, 이렇게 하다보니까 빨리 서비스로직을 건들고싶은 생각에 테스트코드에 심혈을 기울이지 못했습니다. 다음 프로젝트부터는 TDD방식을 채택해야겠다는 생각이 들었습니다.
 
