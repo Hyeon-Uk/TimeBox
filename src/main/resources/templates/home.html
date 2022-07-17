@@ -35,7 +35,7 @@
         </form> -->
         <div class="boxes row" >
             <a href="#" th:each="message:${messages}" th:href="@{/message/{id}(id=${message.getId()})}" class="box col" >
-                <input type="hidden" class="deadline-value" th:value="${message.getDeadline()}"/>
+                <input type="hidden" class="deadline-value" th:value="${message.getDeadline()}" value="2022-03-22 00:00:00"/>
                 <span class="deadline">
                     <span class="deadline-title">남은 시간</span> <br>
                     <span class="deadline-text"></span>
@@ -59,8 +59,10 @@
             const _day=_hour*24;
             deadlines.forEach((deadline,index)=>{
                 const target=new Date(deadline.value);
+                console.log(target);
                 const timer=setInterval(()=>{
                     const now = new Date();
+                    console.log(now);
                     const distance = target.getTime() - now.getTime();
                     if (distance < 0) {
                         clearInterval(timer);

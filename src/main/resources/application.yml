@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    include:
+      - key
+      - mail
+      - securitylocal
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
