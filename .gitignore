@@ -36,8 +36,9 @@ out/
 ### VS Code ###
 .vscode/
 
-/src/main/resources/application.properties
-/src/main/resources/application-SECURITY.properties
-/src/main/resources/application-SECURITY-LOCAL.properties
-/src/main/resources/application-KEY.properties
-/src/main/resources/application-MAIL.properties
+#/src/main/resources/application.yml
+#/src/main/resources/application-SECURITY.yml
+#/src/main/resources/application-SECURITY-LOCAL.yml
+#/src/main/resources/application-KEY.yml
+#/src/main/resources/application-MAIL.yml
+/src/main/resources/*.yml
