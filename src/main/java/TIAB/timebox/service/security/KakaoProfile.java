@@ -1,7 +1,9 @@
-package TIAB.timebox.security;
+package TIAB.timebox.service.security;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class KakaoProfile {
     private long id;
     private String connected_at;
@@ -9,6 +11,7 @@ public class KakaoProfile {
     private KakaoAccount kakao_account;
 
     @Getter
+    @ToString
     public static class Properties{
         private String nickname;
         private String profile_image;
@@ -16,6 +19,7 @@ public class KakaoProfile {
     }
 
     @Getter
+    @ToString
     public static class KakaoAccount{
         private Boolean profile_nickname_needs_agreement;
         private Boolean profile_image_needs_agreement;
@@ -33,6 +37,7 @@ public class KakaoProfile {
         private Boolean gender_needs_agreement;
 
         @Getter
+        @ToString
         public static class Profile {
             private String nickname;
             private String thumbnail_image_url;

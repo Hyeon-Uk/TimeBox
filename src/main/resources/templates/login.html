@@ -22,11 +22,8 @@
     </main>
 
     <script th:inline="javascript">
-        const key=[[${key}]];
-        const redirect=[[${redirect}]];
-
         document.querySelector("#button").addEventListener("click",e=>{
-            location.href="https://kauth.kakao.com/oauth/authorize?client_id="+key+"&redirect_uri="+redirect+"&response_type=code";
+            location.href="/oauth2/authorization/kakao";
         })
     </script>
 </body>
