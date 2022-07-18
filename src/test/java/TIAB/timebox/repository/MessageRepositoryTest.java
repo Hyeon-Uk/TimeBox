@@ -1,4 +1,4 @@
-package TIAB.timebox;
+package TIAB.timebox.repository;
 
 import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.entity.user.User;
@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +19,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
-@RunWith(SpringRunner.class)
-@Transactional
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class MessageRepositoryTest {
 
     @Autowired
@@ -110,16 +111,4 @@ public class MessageRepositoryTest {
         List<Message> messages= messageRepository.findAllByDeadline(now).orElse(null);
         assertEquals(messages.size(),4);
     }
-
-
-    @Test
-    public void checkDeadline(){
-        List<Message> messages= messageRepository.findAll();
-        List<Message> deadlines= messageRepository.findAllByDeadline(new Date()).orElse(null);
-        System.out.println(new Date().toString());
-        deadlines.forEach(message->{
-            System.out.println(message.getDeadline().toString());
-        });
-    }
-
 }
