@@ -11,6 +11,8 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="message")
 public class Message extends BaseEntity {
     @Id
@@ -26,6 +28,15 @@ public class Message extends BaseEntity {
 
     @Column(name="height")
     private int height;
+
+    @Builder
+    public Message(String content, int width, int height, Date deadline, User user) {
+        this.content = content;
+        this.width = width;
+        this.height = height;
+        this.deadline = deadline;
+        this.user = user;
+    }
 
     @Temporal(TemporalType.DATE)
     @Column(name="deadline")

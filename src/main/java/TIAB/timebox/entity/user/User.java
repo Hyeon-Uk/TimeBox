@@ -25,6 +25,13 @@ public class User extends BaseEntity {
     @Column(name="img_src")
     private String imgSrc;
 
+    @Builder
+    public User(Long kakaoId, String email, String imgSrc) {
+        this.kakaoId = kakaoId;
+        this.email = email;
+        this.imgSrc = imgSrc;
+    }
+
     @OneToMany(mappedBy = "user")
     private List<Message> messages=new ArrayList<>();
 }
