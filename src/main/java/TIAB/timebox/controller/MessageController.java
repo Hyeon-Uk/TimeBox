@@ -24,18 +24,18 @@ public class MessageController {
     @Autowired
     private MessageService messageService;
 
-    @GetMapping("/")
+    @GetMapping
     public String makeMessage(Model model){
         return "make";
     }
 
-    @PostMapping("/")
-    public String sendMessage(HttpSession session, MessageDto message) throws IOException {
+    @PostMapping
+    public String sendMessage(HttpSession session, MessageDto messageDto) throws IOException {
         long userId=(Long)session.getAttribute("id");
-        if(message.getDeadline()==null){
+        if(messageDto.getDeadline()==null){
             return "redirect:/message";
         }
-        messageService.save(userId,message);
+        messageService.save(userId,messageDto);
         return "redirect:/";
     }
 
