@@ -1,4 +1,4 @@
-package TIAB.timebox.service.notification.impli;
+package TIAB.timebox.service.notification;
 
 import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.service.notification.Notification;
