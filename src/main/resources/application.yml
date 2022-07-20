@@ -1,4 +1,23 @@
 spring:
+  config:
+    activate:
+      on-profile: default
+  profiles:
+    include:
+      - key
+      - mail
+      - security
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    show-sql: true
+---
+
+spring:
+  config:
+    activate:
+      on-profile: test
   profiles:
     include:
       - key
@@ -6,6 +25,7 @@ spring:
       - securitylocal
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
 
     show-sql: true
+---
