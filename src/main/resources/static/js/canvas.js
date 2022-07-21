@@ -179,21 +179,22 @@ function handleSaveClick() {
     resultCtx.putImageData(ctx.getImageData(0,0,canvas.width,canvas.height),0,0);
     drawText(resultCanvas);
     const imgDataUrl=resultCanvas.toDataURL('image/png');
-    // const blobBin=atob(imgDataUrl.split(',')[1]);
-    // let array=[];
-    // for(let i=0;i<blobBin.length;i++){
-    //     array.push(blobBin.charCodeAt(i));
-    // }
-    // const file=new Blob([new Uint8Array(array)],{type:'imag/png'});
+    const blobBin=atob(imgDataUrl.split(',')[1]);
+    let array=[];
+    for(let i=0;i<blobBin.length;i++){
+        array.push(blobBin.charCodeAt(i));
+    }
+    const file=new Blob([new Uint8Array(array)],{type:'imag/png'});
     const formData=new FormData();
-    formData.append("content",imgDataUrl);
+    // formData.append("content",imgDataUrl);
+    formData.append("content",file);
     formData.append("deadline",deadline_value);
     formData.append("width",resultCanvas.width);
     formData.append("height",resultCanvas.height);
 
     $.ajax({
         type:'post',
-        url:'/message/',
+        url:'/message',
         data:formData,
         processData: false,
         contentType:false,

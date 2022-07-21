@@ -5,26 +5,50 @@ import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.entity.user.User;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class MessageServiceImpl implements MessageService{
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private MessageRepository messageRepository;
 
-    public Message save(long id, MessageDto recvMessage){
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    private String generateFilename(MessageDto dto){
+        Date date=new Date();
+        return Long.toString(date.getTime())+".png";
+    }
+
+    @Override
+    public Message save(long id, MessageDto messageDto) throws IOException {
         User user=userRepository.findById(id).orElse(null);
-        Message message=new Message();
-        message.setUser(user);
-        message.setContent(recvMessage.getContent());
-        message.setDeadline(recvMessage.getDeadline());
-        message.setWidth(recvMessage.getWidth());
-        message.setHeight(recvMessage.getHeight());
+
+        MultipartFile file=messageDto.getContent();
+        String absolutePath=resourceLoader.getResource("classpath:static/messagebox").getURL().getPath();
+        String filename=generateFilename(messageDto);
+
+        file.transferTo(new File(absolutePath+"/"+filename));
+        Message message = Message.builder()
+                            .user(user)
+                            .filename(filename)
+                            .fileUrl("/messagebox/"+filename)
+                            .deadline(messageDto.getDeadline())
+                            .width(messageDto.getWidth())
+                            .height(messageDto.getHeight())
+                            .build();
 
         user.getMessages().add(message);
         return messageRepository.save(message);

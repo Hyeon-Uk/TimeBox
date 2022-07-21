@@ -12,7 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 public class MessageDto {
-    String content;
+    MultipartFile content;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     Date deadline;
     int width;

@@ -47,42 +47,42 @@ public class MessageRepositoryTest {
                 .build();
 
         yesterdayMessage=Message.builder()
-                .content("message yesterday")
+                .filename("message yesterday")
                 .width(1)
                 .height(1)
                 .deadline(new Date(new Date().getTime()-(1000*60*60*24*1)))
                 .build();
 
         message1=Message.builder()
-                .content("message1")
+                .filename("message1")
                 .width(1)
                 .height(1)
                 .deadline(new Date())
                 .build();
 
         message2=Message.builder()
-                .content("message2")
+                .filename("message2")
                 .width(2)
                 .height(2)
                 .deadline(new Date())
                 .build();
 
         message3=Message.builder()
-                .content("message3")
+                .filename("message3")
                 .width(3)
                 .height(3)
                 .deadline(new Date())
                 .build();
 
         message4=Message.builder()
-                .content("message4")
+                .filename("message4")
                 .width(4)
                 .height(4)
                 .deadline(new Date())
                 .build();
 
         message5=Message.builder()
-                .content("message5")
+                .filename("message5")
                 .width(5)
                 .height(5)
                 .deadline(new Date())
