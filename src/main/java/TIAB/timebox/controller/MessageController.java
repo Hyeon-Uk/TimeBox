@@ -48,9 +48,7 @@ public class MessageController {
                 redirectAttributes.addAttribute("error","시간이 아직 안지났습니다.");
                 return "redirect:/";
             }
-            model.addAttribute("content",message.getContent());
-            model.addAttribute("width",message.getWidth());
-            model.addAttribute("height",message.getHeight());
+            model.addAttribute("messageDto",message);
             return "message";
         }
         else return "redirect:/";
