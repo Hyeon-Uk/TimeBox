@@ -32,7 +32,7 @@ public class MessageServiceImpl implements MessageService{
 
     public List<Message> getAllMessages(long id){
         User user=userRepository.findById(id).orElse(null);
-        return messageRepository.findAllByUser(user).orElse(null);
+        return messageRepository.findAllByUser(user);
     }
 
     public Message getByMessageId(long id){

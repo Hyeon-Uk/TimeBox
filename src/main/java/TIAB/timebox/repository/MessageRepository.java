@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MessageRepository extends JpaRepository<Message,Long> {
-    public Optional<List<Message>> findAllByUser(User user);
-    public Optional<Message> findById(long id);
-    public Optional<List<Message>> findAllByDeadline(Date date);
+    public List<Message> findAllByUser(User user);
+    public List<Message> findAllByDeadline(Date date);
 }
