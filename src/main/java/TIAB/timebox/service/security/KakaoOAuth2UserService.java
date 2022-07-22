@@ -1,5 +1,7 @@
 package TIAB.timebox.service.security;
 
+import TIAB.timebox.dto.UserDtoReq;
+import TIAB.timebox.dto.UserDtoRes;
 import TIAB.timebox.entity.user.User;
 import TIAB.timebox.service.user.UserServiceImpl;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,23 +39,31 @@ public class KakaoOAuth2UserService extends DefaultOAuth2UserService{
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         KakaoProfile profile=objectMapper.convertValue(attributes,KakaoProfile.class);
-
-        Optional<User> userOptional=userService.findByKakaoId(profile.getId());
-        User user;
-        if(userOptional.isPresent()) {
-            user=userOptional.get();
-            user.setKakaoId(profile.getId());
-            user.setEmail(profile.getKakao_account().getEmail());
-            user.setImgSrc(profile.getKakao_account().getProfile().getProfile_image_url());
-        }
-        else{
-            user=User.builder()
-                    .kakaoId(profile.getId())
-                    .email(profile.getKakao_account().getEmail())
-                    .imgSrc(profile.getKakao_account().getProfile().getProfile_image_url())
-                    .build();
-        }
-        User savedUser=userService.save(user);
+        long profileKakaoId=profile.getId();
+        String profileEmail=profile.getKakao_account().getEmail();
+        String profileImgSrc=profile.getKakao_account().getProfile().getProfile_image_url();
+//        Optional<User> userOptional=userService.findByKakaoId(profile.getId());
+//        User user;
+//        if(userOptional.isPresent()) {
+//            user=userOptional.get();
+//            user.setKakaoId(profile.getId());
+//            user.setEmail(profile.getKakao_account().getEmail());
+//            user.setImgSrc(profile.getKakao_account().getProfile().getProfile_image_url());
+//        }
+//        else{
+//            user=User.builder()
+//                    .kakaoId(profile.getId())
+//                    .email(profile.getKakao_account().getEmail())
+//                    .imgSrc(profile.getKakao_account().getProfile().getProfile_image_url())
+//                    .build();
+//        }
+//        User savedUser=userService.save(user);
+        UserDtoReq dtoReq=UserDtoReq.builder()
+                .kakaoId(profileKakaoId)
+                .email(profileEmail)
+                .imgSrc(profileImgSrc)
+                .build();
+        UserDtoRes savedUser=userService.save(dtoReq);
 
         httpSession.setAttribute("id",savedUser.getId());
         httpSession.setAttribute("kakao_id",savedUser.getKakaoId());

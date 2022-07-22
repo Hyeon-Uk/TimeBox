@@ -1,4 +1,5 @@
 package TIAB.timebox.controller;
+import TIAB.timebox.dto.UserDtoRes;
 import TIAB.timebox.entity.user.User;
 import TIAB.timebox.service.message.MessageService;
 import TIAB.timebox.service.user.UserService;
@@ -21,14 +22,14 @@ public class HomeController {
     private MessageService messageService;
 
     @GetMapping
-    public String home(HttpSession session, Model model){
+    public String home(HttpSession session, Model model) throws Exception {
         String email= (String) session.getAttribute("email");
         long id=(long) session.getAttribute("id");
         log.info("email = {}, id={}",email,id);
         if(email!=null){
-            User user= userService.getUser(id);
-            model.addAttribute("messages",user.getMessages());
-            model.addAttribute("user",user);
+            UserDtoRes user= userService.getUser(id);
+            model.addAttribute("messages",user.getUser().getMessages());
+            model.addAttribute("user",user.getUser());
         }
         return "home";
     }

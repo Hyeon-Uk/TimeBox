@@ -1,13 +1,32 @@
 package TIAB.timebox.service.user;
 
+import TIAB.timebox.dto.UserDtoReq;
+import TIAB.timebox.dto.UserDtoRes;
 import TIAB.timebox.entity.user.User;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-    public User save(User user);
-    public User getUser(long id);
-    public Optional<User> findByKakaoId(long kakaoId);
-    public List<User> getAllUsers();
+    public UserDtoRes save(UserDtoReq dto);
+    public UserDtoRes getUser(long id) throws Exception;
+    public UserDtoRes findByKakaoId(long kakaoId) throws Exception;
+    public List<UserDtoRes> getAllUsers();
+
+    default User dtoToEntity(UserDtoReq dto){
+        return User.builder()
+                .email(dto.getEmail())
+                .kakaoId(dto.getKakaoId())
+                .imgSrc(dto.getImgSrc())
+                .build();
+    }
+
+    default UserDtoRes entityToDto(User entity){
+        return UserDtoRes.builder()
+                .email(entity.getEmail())
+                .kakaoId(entity.getKakaoId())
+                .id(entity.getId())
+                .user(entity)
+                .build();
+    }
 }
