@@ -8,14 +8,11 @@ import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 @Service
 @Slf4j
@@ -31,6 +28,9 @@ public class MessageServiceImpl implements MessageService{
 
         MultipartFile file= messageDtoReq.getContent();
         String absolutePath=System.getProperty("user.dir")+"/src/main/resources/static/messagebox";
+        File dir=new File(absolutePath);
+        if(!dir.exists()) dir.mkdir();
+
         String filename=generateFilename(messageDtoReq);
         String fileUrl="/messagebox/"+filename;
         messageDtoReq.setFilename(filename);
