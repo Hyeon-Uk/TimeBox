@@ -5,12 +5,11 @@ import TIAB.timebox.dto.UserDtoRes;
 import TIAB.timebox.entity.user.User;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
     public UserDtoRes save(UserDtoReq dto);
-    public UserDtoRes getUser(long id) throws Exception;
-    public UserDtoRes findByKakaoId(long kakaoId) throws Exception;
+    public UserDtoRes getUser(long id);
+    public UserDtoRes findByKakaoId(long kakaoId);
     public List<UserDtoRes> getAllUsers();
 
     default User dtoToEntity(UserDtoReq dto){

@@ -6,11 +6,10 @@ import TIAB.timebox.entity.message.Message;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 
 public interface MessageService {
     public MessageDtoRes save(long id, MessageDtoReq recvMessage) throws IOException;
-    public MessageDtoRes getByMessageId(long id) throws Exception;
+    public MessageDtoRes getByMessageId(long id);
 
     default String generateFilename(MessageDtoReq dto){
         Date date=new Date();

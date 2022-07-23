@@ -4,6 +4,7 @@ import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.entity.user.User;
+import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -46,7 +47,7 @@ public class MessageServiceImpl implements MessageService{
     }
 
     //없는 메세지 호출시 예외처리 하기
-    public MessageDtoRes getByMessageId(long id) throws Exception {
-        return entityToDto(messageRepository.findById(id).orElseThrow(()->new Exception("메세지가 없습니다.")));
+    public MessageDtoRes getByMessageId(long id){
+        return entityToDto(messageRepository.findById(id).orElseThrow(()->new MessageNotFoundException()));
     }
 }
