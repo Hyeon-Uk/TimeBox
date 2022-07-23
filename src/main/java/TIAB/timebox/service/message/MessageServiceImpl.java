@@ -46,7 +46,7 @@ public class MessageServiceImpl implements MessageService{
     }
 
     //없는 메세지 호출시 예외처리 하기
-    public MessageDtoRes getByMessageId(long id){
-        return entityToDto(messageRepository.findById(id).orElse(null));
+    public MessageDtoRes getByMessageId(long id) throws Exception {
+        return entityToDto(messageRepository.findById(id).orElseThrow(()->new Exception("메세지가 없습니다.")));
     }
 }

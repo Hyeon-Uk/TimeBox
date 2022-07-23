@@ -1,9 +1,8 @@
 package TIAB.timebox.controller;
 
-import TIAB.timebox.dto.MessageDtoRes;
-import TIAB.timebox.entity.message.Message;
-import TIAB.timebox.service.message.MessageService;
 import TIAB.timebox.dto.MessageDtoReq;
+import TIAB.timebox.dto.MessageDtoRes;
+import TIAB.timebox.service.message.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,17 +40,14 @@ public class MessageController {
     }
 
     @GetMapping("/{id}")
-    public String showMessage(HttpSession session, @PathVariable("id") String id,Model model, RedirectAttributes redirectAttributes){
+    public String showMessage(@PathVariable("id") String id,Model model, RedirectAttributes redirectAttributes) throws Exception {
         Date now=new Date();
         MessageDtoRes messageDtoRes=messageService.getByMessageId(Long.parseLong(id));
-        if(messageDtoRes!=null){
-            if(now.getTime()<messageDtoRes.getDeadline().getTime()){
-                redirectAttributes.addAttribute("error","시간이 아직 안지났습니다.");
-                return "redirect:/";
-            }
-            model.addAttribute("messageDto",messageDtoRes);
-            return "message";
+        if(now.getTime()<messageDtoRes.getDeadline().getTime()){
+            redirectAttributes.addAttribute("error","시간이 아직 안지났습니다.");
+            return "redirect:/";
         }
-        else return "redirect:/";
+        model.addAttribute("messageDto",messageDtoRes);
+        return "message";
     }
 }

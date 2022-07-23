@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MessageService {
     public MessageDtoRes save(long id, MessageDtoReq recvMessage) throws IOException;
-    public MessageDtoRes getByMessageId(long id);
+    public MessageDtoRes getByMessageId(long id) throws Exception;
 
     default String generateFilename(MessageDtoReq dto){
         Date date=new Date();
