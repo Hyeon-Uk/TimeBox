@@ -10,6 +10,7 @@ import TIAB.timebox.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -24,6 +25,7 @@ public class MessageServiceImpl implements MessageService{
     private MessageRepository messageRepository;
 
     @Override
+    @Transactional
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
         User user=userRepository.findById(id).orElse(null);
 
@@ -46,7 +48,6 @@ public class MessageServiceImpl implements MessageService{
         return entityToDto(messageRepository.save(message));
     }
 
-    //없는 메세지 호출시 예외처리 하기
     public MessageDtoRes getByMessageId(long id){
         return entityToDto(messageRepository.findById(id).orElseThrow(()->new MessageNotFoundException()));
     }
