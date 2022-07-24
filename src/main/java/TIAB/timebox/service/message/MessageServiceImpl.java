@@ -1,5 +1,6 @@
 package TIAB.timebox.service.message;
 
+import TIAB.timebox.dto.FileServiceDtoRes;
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.entity.message.Message;
@@ -35,8 +36,10 @@ public class MessageServiceImpl implements MessageService{
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
         User user=userRepository.findById(id).orElseThrow(()->new UserNotFoundException());
 
-        fileService.save(messageDtoReq);
+        FileServiceDtoRes fileServiceDtoRes = fileService.save(messageDtoReq);
 
+        messageDtoReq.setFilename(fileServiceDtoRes.getFilename());
+        messageDtoReq.setFileUrl(fileServiceDtoRes.getFileUrl());
         messageDtoReq.setUser(user);
         Message message = dtoToEntity(messageDtoReq);
 

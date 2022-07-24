@@ -1,5 +1,6 @@
 package TIAB.timebox.service;
 
+import TIAB.timebox.dto.FileServiceDtoRes;
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.entity.message.Message;
@@ -59,7 +60,7 @@ public class MessageServiceImplTest {
     }
 
     @BeforeEach
-    public void init() throws IOException {
+    public void init() {
         filename1="file1";
         filename2="file2";
         filename3="file3";
@@ -168,15 +169,17 @@ public class MessageServiceImplTest {
         @Test
         public void save() throws IOException {
             //given
+            System.out.println(new Date());
             when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user1));
             when(messageRepository.save(any())).thenReturn(todayMessageAfter);
             doAnswer(new Answer() {
                 @Override
                 public Object answer(InvocationOnMock invocation) throws Throwable {
                     MessageDtoReq dto=(MessageDtoReq) invocation.getArgument(0);
-                    dto.setFilename(filename2);
-                    dto.setFileUrl(filepath2);
-                    return dto;
+                    return FileServiceDtoRes.builder()
+                            .filename(dto.getFilename())
+                            .fileUrl(dto.getFileUrl())
+                            .build();
                 }
             }).when(fileService).save(any());
 
