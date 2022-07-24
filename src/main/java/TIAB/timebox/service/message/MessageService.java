@@ -5,16 +5,10 @@ import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.entity.message.Message;
 
 import java.io.IOException;
-import java.util.Date;
 
 public interface MessageService {
     public MessageDtoRes save(long id, MessageDtoReq recvMessage) throws IOException;
     public MessageDtoRes getByMessageId(long id);
-
-    default String generateFilename(MessageDtoReq dto){
-        Date date=new Date();
-        return Long.toString(date.getTime())+".png";
-    }
 
     default Message dtoToEntity(MessageDtoReq messageDtoReq){
         return Message.builder()

@@ -8,13 +8,12 @@ import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
+import TIAB.timebox.service.file.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 
 @Service
@@ -22,11 +21,13 @@ import java.io.IOException;
 public class MessageServiceImpl implements MessageService{
     private UserRepository userRepository;
     private MessageRepository messageRepository;
+    private FileService fileService;
 
     @Autowired
-    public MessageServiceImpl(UserRepository userRepository,MessageRepository messageRepository){
+    public MessageServiceImpl(UserRepository userRepository,MessageRepository messageRepository,FileService fileService){
         this.userRepository=userRepository;
         this.messageRepository=messageRepository;
+        this.fileService=fileService;
     }
 
     @Override
@@ -34,19 +35,9 @@ public class MessageServiceImpl implements MessageService{
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
         User user=userRepository.findById(id).orElseThrow(()->new UserNotFoundException());
 
-        MultipartFile file= messageDtoReq.getContent();
-        String absolutePath=System.getProperty("user.dir")+"/src/main/resources/static/messagebox";
-        File dir=new File(absolutePath);
-        if(!dir.exists()) dir.mkdir();
+        fileService.save(messageDtoReq);
 
-        String filename=generateFilename(messageDtoReq);
-        String fileUrl="/messagebox/"+filename;
-        messageDtoReq.setFilename(filename);
-        messageDtoReq.setFileUrl(fileUrl);
         messageDtoReq.setUser(user);
-
-        File saveFile=new File(absolutePath,filename);
-        file.transferTo(saveFile);
         Message message = dtoToEntity(messageDtoReq);
 
         user.getMessages().add(message);
