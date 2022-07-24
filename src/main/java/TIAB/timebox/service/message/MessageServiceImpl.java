@@ -5,6 +5,7 @@ import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.entity.user.User;
 import TIAB.timebox.exception.MessageNotFoundException;
+import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -19,15 +20,19 @@ import java.io.IOException;
 @Service
 @Slf4j
 public class MessageServiceImpl implements MessageService{
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    public MessageServiceImpl(UserRepository userRepository,MessageRepository messageRepository){
+        this.userRepository=userRepository;
+        this.messageRepository=messageRepository;
+    }
 
     @Override
     @Transactional
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
-        User user=userRepository.findById(id).orElse(null);
+        User user=userRepository.findById(id).orElseThrow(()->new UserNotFoundException());
 
         MultipartFile file= messageDtoReq.getContent();
         String absolutePath=System.getProperty("user.dir")+"/src/main/resources/static/messagebox";
