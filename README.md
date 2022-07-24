@@ -99,7 +99,8 @@ https://github.com/Hyeon-Uk/TimeBox
 
 ### 1. Login
 
-카카오 소셜로그인을 이용해서 로그인을 구현했습니다. 카카오 디벨로퍼를 이용해서 ID와 Email을 받아 저장하였습니다.
+~~카카오 소셜로그인을 이용해서 로그인을 구현했습니다. 카카오 디벨로퍼를 이용해서 ID와 Email을 받아 저장하였습니다.~~
+(2022.07.17 적용)Spring Security의 OAuth를 이용해서 카카오 소셜로그인을 구현했습니다.
 
 ### 2. 편지 저장,조회
 
@@ -119,9 +120,13 @@ https://github.com/Hyeon-Uk/TimeBox
 접속시간이 긴 서비스가 아니라서 서버에 부담이 덜하고, Thymeleaf를 이용하여 Server Side Rendering을 하기때문에, JWT보단 Session을 이용해서 유저관리를 해주는것이 좋다고 생각을해서 Session을 이용했습니다.
 
 
-### 5. 인터셉터
-로그인이 되지않은채 이런저런 페이지를 돌아다닌다면 보안에 문제가 생기므로, Interceptor를 이용해서 세션이 존재하지 않으면 login페이지로 Redirect되게끔 설정했습니다.
+### ~~5. 인터셉터~~
+~~로그인이 되지않은채 이런저런 페이지를 돌아다닌다면 보안에 문제가 생기므로, Interceptor를 이용해서 세션이 존재하지 않으면 login페이지로 Redirect되게끔 설정했습니다.~~
 
+***
+
+# 디자인 패턴
+MVC(Model, View, Controller) 의 패턴을 적용했습니다.
 ***
 # 후기
 
