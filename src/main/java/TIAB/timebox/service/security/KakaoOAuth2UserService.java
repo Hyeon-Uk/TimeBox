@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -65,11 +66,14 @@ public class KakaoOAuth2UserService extends DefaultOAuth2UserService{
                 .build();
         UserDtoRes savedUser=userService.save(dtoReq);
 
-        httpSession.setAttribute("id",savedUser.getId());
-        httpSession.setAttribute("kakao_id",savedUser.getKakaoId());
-        httpSession.setAttribute("email",savedUser.getEmail());
+//        httpSession.setAttribute("id",savedUser.getId());
+//        httpSession.setAttribute("kakao_id",savedUser.getKakaoId());
+//        httpSession.setAttribute("email",savedUser.getEmail());
+        Map<String,Object> verifyInfo=new HashMap<>();
+        verifyInfo.put("id",savedUser.getId());
 
 
-        return new DefaultOAuth2User( Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), attributes, "id" );
+        return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),verifyInfo,"id");
+//        return new DefaultOAuth2User( Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")), attributes, "id" );
     }
 }
