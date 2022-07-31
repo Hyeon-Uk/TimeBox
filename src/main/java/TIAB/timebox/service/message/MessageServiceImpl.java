@@ -1,47 +1,46 @@
 package TIAB.timebox.service.message;
 
+import TIAB.timebox.dto.FileServiceDtoRes;
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.entity.user.User;
 import TIAB.timebox.exception.MessageNotFoundException;
+import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
+import TIAB.timebox.service.file.FileService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 
 @Service
 @Slf4j
 public class MessageServiceImpl implements MessageService{
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private MessageRepository messageRepository;
+    private FileService fileService;
+
+    @Autowired
+    public MessageServiceImpl(UserRepository userRepository,MessageRepository messageRepository,FileService fileService){
+        this.userRepository=userRepository;
+        this.messageRepository=messageRepository;
+        this.fileService=fileService;
+    }
 
     @Override
     @Transactional
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
-        User user=userRepository.findById(id).orElse(null);
+        User user=userRepository.findById(id).orElseThrow(()->new UserNotFoundException());
 
-        MultipartFile file= messageDtoReq.getContent();
-        String absolutePath=System.getProperty("user.dir")+"/src/main/resources/static/messagebox";
-        File dir=new File(absolutePath);
-        if(!dir.exists()) dir.mkdir();
+        FileServiceDtoRes fileServiceDtoRes = fileService.save(messageDtoReq);
 
-        String filename=generateFilename(messageDtoReq);
-        String fileUrl="/messagebox/"+filename;
-        messageDtoReq.setFilename(filename);
-        messageDtoReq.setFileUrl(fileUrl);
+        messageDtoReq.setFilename(fileServiceDtoRes.getFilename());
+        messageDtoReq.setFileUrl(fileServiceDtoRes.getFileUrl());
         messageDtoReq.setUser(user);
-
-        File saveFile=new File(absolutePath,filename);
-        file.transferTo(saveFile);
         Message message = dtoToEntity(messageDtoReq);
 
         user.getMessages().add(message);
