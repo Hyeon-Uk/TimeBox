@@ -1,4 +1,4 @@
-package TIAB.timebox.Config;
+package TIAB.timebox.config;
 
 import TIAB.timebox.service.security.KakaoOAuth2UserService;
 import lombok.RequiredArgsConstructor;
