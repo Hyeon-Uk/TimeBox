@@ -1,5 +1,6 @@
 package TIAB.timebox.controller;
 
+import TIAB.timebox.exception.CanNotAccessException;
 import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.NotPassedDeadlineException;
 import TIAB.timebox.exception.UserNotFoundException;
@@ -29,6 +30,13 @@ public class ExceptionController {
     @ExceptionHandler
     public String notPassedDeadlineException(NotPassedDeadlineException e,RedirectAttributes redirectAttributes){
         log.error("not passed deadline");
+        redirectAttributes.addAttribute("error",e.getMessage());
+        return "redirect:/";
+    }
+
+    @ExceptionHandler
+    public String canNotAccessException(CanNotAccessException e,RedirectAttributes redirectAttributes){
+        log.error("can not access this message");
         redirectAttributes.addAttribute("error",e.getMessage());
         return "redirect:/";
     }

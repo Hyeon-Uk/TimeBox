@@ -28,6 +28,7 @@ public interface MessageService {
                 .filename(message.getFilename())
                 .fileUrl(message.getFileUrl())
                 .deadline(message.getDeadline())
+                .user(message.getUser())
                 .build();
     }
 }

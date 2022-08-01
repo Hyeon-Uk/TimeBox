@@ -2,10 +2,13 @@ package TIAB.timebox.controller;
 
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
+import TIAB.timebox.exception.CanNotAccessException;
 import TIAB.timebox.exception.NotPassedDeadlineException;
 import TIAB.timebox.service.message.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 
@@ -30,8 +32,8 @@ public class MessageController {
     }
 
     @PostMapping
-    public String sendMessage(HttpSession session, MessageDtoReq messageDtoReq) throws IOException {
-        long userId=(Long)session.getAttribute("id");
+    public String sendMessage(@AuthenticationPrincipal OAuth2User oAuth2User, MessageDtoReq messageDtoReq) throws IOException {
+        long userId=oAuth2User.getAttribute("id");
         if(messageDtoReq.getDeadline()==null){
             return "redirect:/message";
         }
@@ -40,10 +42,16 @@ public class MessageController {
     }
 
     @GetMapping("/{id}")
-    public String showMessage(@PathVariable("id") String id,Model model) {
+    public String showMessage(@PathVariable("id") String id,
+                              @AuthenticationPrincipal OAuth2User oAuth2User,
+                              Model model) {
         Date now=new Date();
+        long userId=oAuth2User.getAttribute("id");
         MessageDtoRes messageDtoRes=messageService.getByMessageId(Long.parseLong(id));
+
         if(now.getTime()<messageDtoRes.getDeadline().getTime()) throw new NotPassedDeadlineException();
+        if(messageDtoRes.getUser().getId()!=userId) throw new CanNotAccessException();
+
         model.addAttribute("messageDto",messageDtoRes);
         return "message";
     }
