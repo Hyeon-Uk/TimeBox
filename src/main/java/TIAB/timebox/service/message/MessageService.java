@@ -23,6 +23,7 @@ public interface MessageService {
 
     default MessageDtoRes entityToDto(Message message){
         return MessageDtoRes.builder()
+                .id(message.getId())
                 .width(message.getWidth())
                 .height(message.getHeight())
                 .filename(message.getFilename())

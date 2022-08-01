@@ -130,15 +130,15 @@ public class MessageServiceImplTest {
         tomorrowMessageAfter.setFilename(filename3);
         tomorrowMessageAfter.setFileUrl(filepath+"/"+filename3+"."+contentType);
 
-        yesterdayDtoRes=messageService.entityToDto(yesterdayMessage);
+        yesterdayDtoRes=messageService.entityToDto(yesterdayMessageAfter);
         yesterdayDtoRes.setFilename(filename1);
         yesterdayDtoRes.setFileUrl(filepath1);
 
-        todayDtoRes=messageService.entityToDto(todayMessage);
+        todayDtoRes=messageService.entityToDto(todayMessageAfter);
         todayDtoRes.setFilename(filename2);
         todayDtoRes.setFileUrl(filepath2);
 
-        tomorrowDtoRes=messageService.entityToDto(tomorrowMessage);
+        tomorrowDtoRes=messageService.entityToDto(tomorrowMessageAfter);
         tomorrowDtoRes.setFilename(filename3);
         tomorrowDtoRes.setFileUrl(filepath3);
     }
