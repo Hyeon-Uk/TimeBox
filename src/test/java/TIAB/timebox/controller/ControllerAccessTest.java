@@ -5,7 +5,9 @@ import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.dto.UserDtoReq;
 import TIAB.timebox.dto.UserDtoRes;
 import TIAB.timebox.exception.CanNotAccessException;
+import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.NotPassedDeadlineException;
+import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.service.message.MessageService;
 import TIAB.timebox.service.user.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,12 +25,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.oauth2Login;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -102,7 +104,7 @@ public class ControllerAccessTest {
         UserDtoRes userDtoRes1,userDtoRes2;
         MessageDtoReq messageDtoReq1,messageDtoReq2,messageDtoReq3;
         MessageDtoRes messageDtoRes1,messageDtoRes2,messageDtoRes3;
-        SecurityMockMvcRequestPostProcessors.OAuth2LoginRequestPostProcessor user1,user2;
+        SecurityMockMvcRequestPostProcessors.OAuth2LoginRequestPostProcessor user1,user2,undefinedUser;
 
         private MockMultipartFile getMockMultifile(String filename, String contentType, String path){
             return new MockMultipartFile(filename,filename+"."+contentType,contentType,path.getBytes());
@@ -176,7 +178,12 @@ public class ControllerAccessTest {
                     .attributes(attr->{
                         attr.put("id",userDtoRes2.getId());
                     });
-
+            //없는 유저 생성
+            undefinedUser = oauth2Login()
+                    .authorities(new SimpleGrantedAuthority("ROLE_USER"))
+                    .attributes(attr->{
+                        attr.put("id",123123291l);
+                    });
 
         }
         @Test
@@ -222,6 +229,73 @@ public class ControllerAccessTest {
                     .andExpect(result->{
                         assertThat(result.getResolvedException().getClass()).isAssignableFrom(CanNotAccessException.class);
                     })
+                    .andExpect(status().is3xxRedirection());
+        }
+
+        @Test
+        @DisplayName("없는 메세지 조회 불가능")
+        public void canNotAccessNotExistMessage() throws Exception{
+            mvc.perform(get("/message/"+(messageDtoRes3.getId()+1)).with(user1))
+                    .andDo(print())
+                    .andExpect(result->{
+                        assertThat(result.getResolvedException().getClass()).isAssignableFrom(MessageNotFoundException.class);
+                    })
+                    .andExpect(status().is3xxRedirection());
+        }
+
+        @Test
+        @DisplayName("유저가 메세지 전송")
+        public void userPostMessage() throws Exception {
+            String formatted=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            mvc.perform(
+                    multipart("/message")
+                            .file("content",getMockMultifile("aa","aa","Aa").getBytes())
+                            .param("height","15")
+                            .param("width","15")
+                            .param("deadline",formatted)
+                            .with(request->{
+                                request.setMethod("POST");
+                                return request;
+                            }).with(user1)
+            )
+                    .andDo(print())
+                    .andExpect(status().is3xxRedirection());
+        }
+
+        @Test
+        @DisplayName("없는 유저가 메세지를 만들기위해 접근")
+        public void undefinedUserAccess() throws Exception{
+            String formatted=new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+            mvc.perform(
+                    multipart("/message")
+                            .file("content",getMockMultifile("aa","aa","aa").getBytes())
+                            .param("width","15")
+                            .param("height","15")
+                            .param("deadline", formatted)
+                            .with(request->{
+                                request.setMethod("POST");
+                                return request;
+                            }).with(undefinedUser))
+                    .andDo(print())
+                    .andExpect(result->{
+                        assertThat(result.getResolvedException().getClass()).isAssignableFrom(UserNotFoundException.class);
+                    })
+                    .andExpect(status().is3xxRedirection());
+        }
+
+        @Test
+        @DisplayName("데드라인을 입력안했을시에 redirect")
+        public void notInputDeadline() throws Exception{
+            mvc.perform(
+                            multipart("/message")
+                                    .file("content",getMockMultifile("aa","aa","aa").getBytes())
+                                    .param("width","15")
+                                    .param("height","15")
+                                    .with(request->{
+                                        request.setMethod("POST");
+                                        return request;
+                                    }).with(undefinedUser))
+                    .andDo(print())
                     .andExpect(status().is3xxRedirection());
         }
     }
