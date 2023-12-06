@@ -4,9 +4,9 @@ spring:
       on-profile: default
   profiles:
     include:
-      - key
+      - oauth
       - mail
-      - security
+      - db
   jpa:
     hibernate:
       ddl-auto: update
@@ -20,9 +20,9 @@ spring:
       on-profile: test
   profiles:
     include:
-      - key
+      - oauth
       - mail
-      - securitylocal
+      - dblocal
   jpa:
     hibernate:
       ddl-auto: create
