@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
-    public List<Message> findAllByMember(Member member);
+    List<Message> findAllByMember(Member member);
 
-    public List<Message> findAllByDeadline(Date date);
+    List<Message> findAllByDeadline(Date date);
 }

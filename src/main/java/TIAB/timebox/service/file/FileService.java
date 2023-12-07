@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.Date;
 
 public interface FileService {
-    public FileServiceDtoRes save(MessageDtoReq messageDtoReq) throws IOException;
+    FileServiceDtoRes save(MessageDtoReq messageDtoReq) throws IOException;
 
     default String generateFilename(MessageDtoReq dto, String contentType) {
         Date date = new Date();

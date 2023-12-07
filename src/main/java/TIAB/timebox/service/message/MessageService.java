@@ -7,9 +7,9 @@ import TIAB.timebox.entity.message.Message;
 import java.io.IOException;
 
 public interface MessageService {
-    public MessageDtoRes save(long id, MessageDtoReq recvMessage) throws IOException;
+    MessageDtoRes save(long id, MessageDtoReq recvMessage) throws IOException;
 
-    public MessageDtoRes getByMessageId(long id);
+    MessageDtoRes getByMessageId(long id);
 
     default Message dtoToEntity(MessageDtoReq messageDtoReq) {
         return Message.builder()

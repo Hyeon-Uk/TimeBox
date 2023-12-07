@@ -7,13 +7,13 @@ import TIAB.timebox.entity.member.Member;
 import java.util.List;
 
 public interface MemberService {
-    public MemberDtoRes save(MemberDtoReq dto);
+    MemberDtoRes save(MemberDtoReq dto);
 
-    public MemberDtoRes getMember(long id);
+    MemberDtoRes getMember(long id);
 
-    public MemberDtoRes findByKakaoId(long kakaoId);
+    MemberDtoRes findByKakaoId(long kakaoId);
 
-    public List<MemberDtoRes> getAllMembers();
+    List<MemberDtoRes> getAllMembers();
 
     default Member dtoToEntity(MemberDtoReq dto) {
         return Member.builder()
