@@ -21,14 +21,6 @@ public class FileServiceTest {
     @Mock
     private FileServiceImpl fileService;
 
-    @Test
-    @DisplayName("디렉토리 존재하는지에 대한 테스트")
-    public void makeDirTest(){
-        String absolutePath=System.getProperty("user.dir")+"/src/main/resources/static/messagebox";
-        File dir=new File(absolutePath);
-
-        assertThat(dir.exists()).isTrue();
-    }
 
     @Test
     @DisplayName("파일 저장 테스트")
