@@ -10,8 +10,8 @@ import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
 import TIAB.timebox.repository.UserRepository;
 import TIAB.timebox.service.file.FileService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,17 +19,11 @@ import java.io.IOException;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
-    private UserRepository userRepository;
-    private MessageRepository messageRepository;
-    private FileService fileService;
-
-    @Autowired
-    public MessageServiceImpl(UserRepository userRepository, MessageRepository messageRepository, FileService fileService) {
-        this.userRepository = userRepository;
-        this.messageRepository = messageRepository;
-        this.fileService = fileService;
-    }
+    private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
+    private final FileService fileService;
 
     @Override
     @Transactional

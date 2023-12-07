@@ -5,8 +5,8 @@ import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.exception.CanNotAccessException;
 import TIAB.timebox.exception.NotPassedDeadlineException;
 import TIAB.timebox.service.message.MessageService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -21,11 +21,11 @@ import java.util.Date;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/message")
 public class MessageController {
 
-    @Autowired
-    private MessageService messageService;
+    private final MessageService messageService;
 
     @GetMapping
     public String makeMessage() {

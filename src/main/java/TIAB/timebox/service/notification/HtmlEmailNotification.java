@@ -1,8 +1,8 @@
 package TIAB.timebox.service.notification;
 
 import TIAB.timebox.entity.message.Message;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -15,6 +15,7 @@ import java.util.List;
 @Service
 @Primary
 @Slf4j
+@RequiredArgsConstructor
 public class HtmlEmailNotification implements Notification {
     public final static String TEMPLATE = "    <div style=\"display: flex;flex-direction: column;align-items: center;justify-content: center;background-color: rgba(243,228,207,0.1);\">\n" +
             "        <div style=\"font-size: 18px;\">\n" +
@@ -25,8 +26,7 @@ public class HtmlEmailNotification implements Notification {
             "    </div>";
     private static final String SUBJECT = "[TimeBox] 메세지가 도착했습니다.";
 
-    @Autowired
-    private JavaMailSender javaMailSender;
+    private final JavaMailSender javaMailSender;
 
     @Override
     public void sendNotification(List<Message> messages) {

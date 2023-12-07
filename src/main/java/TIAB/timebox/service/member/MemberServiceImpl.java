@@ -5,20 +5,16 @@ import TIAB.timebox.dto.MemberDtoRes;
 import TIAB.timebox.entity.member.Member;
 import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
-    private UserRepository userRepository;
-
-    @Autowired
-    public MemberServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
 
     @Override
     public MemberDtoRes save(MemberDtoReq dto) {
