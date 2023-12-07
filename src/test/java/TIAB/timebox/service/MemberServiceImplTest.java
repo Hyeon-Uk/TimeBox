@@ -1,12 +1,12 @@
 package TIAB.timebox.service;
 
 
-import TIAB.timebox.dto.UserDtoReq;
-import TIAB.timebox.dto.UserDtoRes;
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.dto.MemberDtoReq;
+import TIAB.timebox.dto.MemberDtoRes;
+import TIAB.timebox.entity.member.Member;
 import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.UserRepository;
-import TIAB.timebox.service.user.UserServiceImpl;
+import TIAB.timebox.service.member.MemberServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -27,47 +27,47 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceImplTest {
+public class MemberServiceImplTest {
     @InjectMocks
-    private UserServiceImpl userService; //
+    private MemberServiceImpl userService; //
 
     @Mock
     private UserRepository userRepository;
 
-    UserDtoReq userDtoReq1,userDtoReq2;
-    UserDtoRes userDtoRes1,userDtoRes2;
-    User beforeEntity1,afterEntity1,beforeEntity2,afterEntity2;
+    MemberDtoReq memberDtoReq1, memberDtoReq2;
+    MemberDtoRes memberDtoRes1, memberDtoRes2;
+    Member beforeEntity1,afterEntity1,beforeEntity2,afterEntity2;
     @BeforeEach
     public void init(){
-        userDtoReq1=UserDtoReq.builder()
+        memberDtoReq1 = MemberDtoReq.builder()
                 .kakaoId(1l)
                 .imgSrc("imgsrc")
                 .email("test123@gmail.com")
                 .build();
 
-        userDtoReq2=UserDtoReq.builder()
+        memberDtoReq2 = MemberDtoReq.builder()
                 .kakaoId(2l)
                 .imgSrc("imgsrc1")
                 .email("test1234@gmail.com")
                 .build();
 
-        beforeEntity1=userService.dtoToEntity(userDtoReq1);
-        afterEntity1=userService.dtoToEntity(userDtoReq1);
+        beforeEntity1=userService.dtoToEntity(memberDtoReq1);
+        afterEntity1=userService.dtoToEntity(memberDtoReq1);
         afterEntity1.setId(1l);
 
-        beforeEntity2=userService.dtoToEntity(userDtoReq2);
-        afterEntity2=userService.dtoToEntity(userDtoReq2);
+        beforeEntity2=userService.dtoToEntity(memberDtoReq2);
+        afterEntity2=userService.dtoToEntity(memberDtoReq2);
         afterEntity2.setId(2l);
 
-        userDtoRes1=userService.entityToDto(afterEntity1);
-        userDtoRes2=userService.entityToDto(afterEntity2);
+        memberDtoRes1 =userService.entityToDto(afterEntity1);
+        memberDtoRes2 =userService.entityToDto(afterEntity2);
 
     }
 
     //객체 두개를 비교해주는 메소드
-    public void assertThatDtoEqualToDto(UserDtoRes dto1,UserDtoRes dto2){
+    public void assertThatDtoEqualToDto(MemberDtoRes dto1, MemberDtoRes dto2){
         assertThat(dto1.getKakaoId()).isEqualTo(dto2.getKakaoId());
-        assertThat(dto1.getUser()).isEqualTo(dto2.getUser());
+        assertThat(dto1.getMember()).isEqualTo(dto2.getMember());
         assertThat(dto1.getId()).isEqualTo(dto2.getId());
         assertThat(dto1.getEmail()).isEqualTo(dto2.getEmail());
     }
@@ -78,60 +78,60 @@ public class UserServiceImplTest {
         @Test
         public void mockUserRepository(){
             //given
-            List<User> users=new ArrayList<>();
-            users.add(afterEntity1);
-            when(userRepository.findAll()).thenReturn(users);
+            List<Member> members =new ArrayList<>();
+            members.add(afterEntity1);
+            when(userRepository.findAll()).thenReturn(members);
 
             //when
-            List<UserDtoRes> actual = userService.getAllUsers();
+            List<MemberDtoRes> actual = userService.getAllMembers();
 
             //then
             assertThat(actual.size()).isEqualTo(1);
-            assertThatDtoEqualToDto(actual.get(0),userDtoRes1);
+            assertThatDtoEqualToDto(actual.get(0), memberDtoRes1);
         }
 
         @Test
         public void saveTest_새로운사용자(){
             //given
-            when(userRepository.save(any(User.class))).thenReturn(afterEntity1);
+            when(userRepository.save(any(Member.class))).thenReturn(afterEntity1);
             when(userRepository.findByKakaoId(anyLong())).thenReturn(Optional.ofNullable(afterEntity1));
 
             //when
-            UserDtoRes actual=userService.save(userDtoReq1);
+            MemberDtoRes actual=userService.save(memberDtoReq1);
 
             //then
-            assertThatDtoEqualToDto(actual,userDtoRes1);
+            assertThatDtoEqualToDto(actual, memberDtoRes1);
         }
 
         @Test
         public void saveTest_기존사용자_이미지src변경(){
             //given
             String changedSrc="changedSrc";
-            userDtoReq1.setImgSrc(changedSrc);
+            memberDtoReq1.setImgSrc(changedSrc);
             afterEntity1.setImgSrc(changedSrc);
-            userDtoRes1.setUser(afterEntity1);
-            when(userRepository.save(any(User.class))).thenReturn(afterEntity1);
+            memberDtoRes1.setMember(afterEntity1);
+            when(userRepository.save(any(Member.class))).thenReturn(afterEntity1);
 
             //when
-            UserDtoRes actual = userService.save(userDtoReq1);
+            MemberDtoRes actual = userService.save(memberDtoReq1);
 
             //then
-            assertThatDtoEqualToDto(actual,userDtoRes1);
+            assertThatDtoEqualToDto(actual, memberDtoRes1);
         }
 
         @Test
         public void findAllTest(){
             //given
-            List<User> userList=new ArrayList<>();
-            userList.add(afterEntity1);
-            userList.add(afterEntity2);
-            when(userRepository.findAll()).thenReturn(userList);
-            List<UserDtoRes> expects=new ArrayList<>();
-            expects.add(userDtoRes1);
-            expects.add(userDtoRes2);
+            List<Member> memberList =new ArrayList<>();
+            memberList.add(afterEntity1);
+            memberList.add(afterEntity2);
+            when(userRepository.findAll()).thenReturn(memberList);
+            List<MemberDtoRes> expects=new ArrayList<>();
+            expects.add(memberDtoRes1);
+            expects.add(memberDtoRes2);
 
             //when
-            List<UserDtoRes> actual = userService.getAllUsers();
+            List<MemberDtoRes> actual = userService.getAllMembers();
 
             //then
             IntStream.range(0,actual.size()).forEach(i->{
@@ -145,10 +145,10 @@ public class UserServiceImplTest {
             when(userRepository.findByKakaoId(anyLong())).thenReturn(Optional.ofNullable(afterEntity1));
 
             //when
-            UserDtoRes actual = userService.findByKakaoId(userDtoReq1.getKakaoId());
+            MemberDtoRes actual = userService.findByKakaoId(memberDtoReq1.getKakaoId());
 
             //then
-            assertThatDtoEqualToDto(actual,userDtoRes1);
+            assertThatDtoEqualToDto(actual, memberDtoRes1);
         }
 
         @Test
@@ -157,10 +157,10 @@ public class UserServiceImplTest {
             when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(afterEntity1));
 
             //when
-            UserDtoRes actual = userService.getUser(1l);
+            MemberDtoRes actual = userService.getMember(1l);
 
             //then
-            assertThatDtoEqualToDto(actual,userDtoRes1);
+            assertThatDtoEqualToDto(actual, memberDtoRes1);
         }
     }
 
@@ -182,7 +182,7 @@ public class UserServiceImplTest {
             when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(null));
 
             //when & then
-            assertThrows(UserNotFoundException.class,()->userService.getUser(1l));
+            assertThrows(UserNotFoundException.class,()->userService.getMember(1l));
         }
     }
 }

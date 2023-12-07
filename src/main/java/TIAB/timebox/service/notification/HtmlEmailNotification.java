@@ -1,7 +1,6 @@
 package TIAB.timebox.service.notification;
 
 import TIAB.timebox.entity.message.Message;
-import TIAB.timebox.service.notification.Notification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -37,7 +36,7 @@ public class HtmlEmailNotification implements Notification {
             try {
                 htmlEmail.setSubject(SUBJECT,"UTF-8");
                 htmlEmail.setText(TEMPLATE,"UTF-8","html");
-                htmlEmail.addRecipient(javax.mail.Message.RecipientType.TO,new InternetAddress(message.getUser().getEmail()));
+                htmlEmail.addRecipient(javax.mail.Message.RecipientType.TO,new InternetAddress(message.getMember().getEmail()));
                 javaMailSender.send(htmlEmail);
             } catch (MessagingException e) {
                 e.printStackTrace();

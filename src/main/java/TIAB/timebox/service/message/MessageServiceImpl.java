@@ -4,7 +4,7 @@ import TIAB.timebox.dto.FileServiceDtoRes;
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.entity.message.Message;
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.entity.member.Member;
 import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
@@ -34,16 +34,16 @@ public class MessageServiceImpl implements MessageService{
     @Override
     @Transactional
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
-        User user=userRepository.findById(id).orElseThrow(()->new UserNotFoundException());
+        Member member =userRepository.findById(id).orElseThrow(()->new UserNotFoundException());
 
         FileServiceDtoRes fileServiceDtoRes = fileService.save(messageDtoReq);
 
         messageDtoReq.setFilename(fileServiceDtoRes.getFilename());
         messageDtoReq.setFileUrl(fileServiceDtoRes.getFileUrl());
-        messageDtoReq.setUser(user);
+        messageDtoReq.setMember(member);
         Message message = dtoToEntity(messageDtoReq);
 
-        user.getMessages().add(message);
+        member.getMessages().add(message);
         return entityToDto(messageRepository.save(message));
     }
 

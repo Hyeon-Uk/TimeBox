@@ -2,14 +2,14 @@ package TIAB.timebox.controller;
 
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
-import TIAB.timebox.dto.UserDtoReq;
-import TIAB.timebox.dto.UserDtoRes;
+import TIAB.timebox.dto.MemberDtoReq;
+import TIAB.timebox.dto.MemberDtoRes;
 import TIAB.timebox.exception.CanNotAccessException;
 import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.NotPassedDeadlineException;
 import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.service.message.MessageService;
-import TIAB.timebox.service.user.UserService;
+import TIAB.timebox.service.member.MemberService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -43,7 +43,7 @@ public class ControllerAccessTest {
     private MockMvc mvc;
 
     @Autowired
-    private UserService userService;
+    private MemberService memberService;
     @Autowired
     private MessageService messageService;
 
@@ -101,7 +101,7 @@ public class ControllerAccessTest {
     @Nested
     @DisplayName("With OAuth2 User")
     class CanAccess{
-        UserDtoRes userDtoRes1,userDtoRes2;
+        MemberDtoRes memberDtoRes1, memberDtoRes2;
         MessageDtoReq messageDtoReq1,messageDtoReq2,messageDtoReq3;
         MessageDtoRes messageDtoRes1,messageDtoRes2,messageDtoRes3;
         SecurityMockMvcRequestPostProcessors.OAuth2LoginRequestPostProcessor user1,user2,undefinedUser;
@@ -113,25 +113,25 @@ public class ControllerAccessTest {
         public void init() throws IOException {
             MockMultipartFile mockMultipartFile=getMockMultifile("test","test","testpath");
             //user1 생성
-            UserDtoReq userDtoReq1=UserDtoReq.builder()
+            MemberDtoReq memberDtoReq1 = MemberDtoReq.builder()
                     .kakaoId(123l)
                     .email("test123@naver.com")
                     .imgSrc(null)
                     .build();
-            userDtoRes1=userService.save(userDtoReq1);
+            memberDtoRes1 = memberService.save(memberDtoReq1);
             //user2 생성
-            UserDtoReq userDtoReq2=UserDtoReq.builder()
+            MemberDtoReq memberDtoReq2 = MemberDtoReq.builder()
                     .kakaoId(312l)
                     .email("test321@naver.com")
                     .imgSrc(null)
                     .build();
-            userDtoRes2=userService.save(userDtoReq2);
+            memberDtoRes2 = memberService.save(memberDtoReq2);
 
             //user1의 message1 생성
             messageDtoReq1=MessageDtoReq.builder()
                     .content(mockMultipartFile)
                     .deadline(new Date())
-                    .user(userDtoRes1.getUser())
+                    .member(memberDtoRes1.getMember())
                     .filename("123")
                     .fileUrl("123")
                     .height(15)
@@ -142,7 +142,7 @@ public class ControllerAccessTest {
             messageDtoReq2=MessageDtoReq.builder()
                     .content(mockMultipartFile)
                     .deadline(new Date(new Date().getTime()+6000))
-                    .user(userDtoRes1.getUser())
+                    .member(memberDtoRes1.getMember())
                     .filename("123")
                     .fileUrl("123")
                     .height(15)
@@ -153,16 +153,16 @@ public class ControllerAccessTest {
             messageDtoReq3=MessageDtoReq.builder()
                     .content(mockMultipartFile)
                     .deadline(new Date())
-                    .user(userDtoRes2.getUser())
+                    .member(memberDtoRes2.getMember())
                     .filename("123")
                     .fileUrl("123")
                     .height(15)
                     .width(15)
                     .build();
 
-            messageDtoRes1=messageService.save(userDtoRes1.getId(),messageDtoReq1);
-            messageDtoRes2=messageService.save(userDtoRes1.getId(),messageDtoReq2);
-            messageDtoRes3=messageService.save(userDtoRes2.getId(),messageDtoReq3);
+            messageDtoRes1=messageService.save(memberDtoRes1.getId(),messageDtoReq1);
+            messageDtoRes2=messageService.save(memberDtoRes1.getId(),messageDtoReq2);
+            messageDtoRes3=messageService.save(memberDtoRes2.getId(),messageDtoReq3);
 
 
 
@@ -170,13 +170,13 @@ public class ControllerAccessTest {
             user1 = oauth2Login()
                     .authorities(new SimpleGrantedAuthority("ROLE_USER"))
                     .attributes(attr -> {
-                        attr.put("id", userDtoRes1.getId());
+                        attr.put("id", memberDtoRes1.getId());
                     });
             //user2 oauth2 생성
             user2= oauth2Login()
                     .authorities(new SimpleGrantedAuthority("ROLE_USER"))
                     .attributes(attr->{
-                        attr.put("id",userDtoRes2.getId());
+                        attr.put("id", memberDtoRes2.getId());
                     });
             //없는 유저 생성
             undefinedUser = oauth2Login()

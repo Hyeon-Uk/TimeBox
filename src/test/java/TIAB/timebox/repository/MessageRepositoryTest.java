@@ -1,46 +1,41 @@
 package TIAB.timebox.repository;
 
 import TIAB.timebox.entity.message.Message;
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.entity.member.Member;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class MessageRepositoryTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private MessageRepository messageRepository;
 
-    User user1,user2,user3;
+    Member member1, member2, member3;
     Message yesterdayMessage,message1,message2,message3,message4,message5;
 
     @BeforeEach
     public void setUp(){
-        user1=User.builder()
+        member1 = Member.builder()
                 .imgSrc("testimg1")
                 .kakaoId(1l)
                 .email("test1@gmail.com")
                 .build();
-        user2=User.builder()
+        member2 = Member.builder()
                 .imgSrc("testimg2")
                 .kakaoId(2l)
                 .email("test2@gmail.com")
                 .build();
-        user3=User.builder()
+        member3 = Member.builder()
                 .imgSrc("testimg3")
                 .kakaoId(3l)
                 .email("test3@gmail.com")
@@ -96,17 +91,17 @@ public class MessageRepositoryTest {
     @Test
     public void save(){
         //given
-        User savedUser=userRepository.save(user1);
-        message1.setUser(savedUser);
-        savedUser.getMessages().add(message1);
+        Member savedMember =userRepository.save(member1);
+        message1.setMember(savedMember);
+        savedMember.getMessages().add(message1);
 
         //when
         Message savedMessage=messageRepository.save(message1);
-        User findUser=userRepository.findById(savedUser.getId()).orElse(null);
+        Member findMember =userRepository.findById(savedMember.getId()).orElse(null);
 
         //then
         assertThat(savedMessage).isEqualTo(message1);
-        assertThat(findUser.getMessages()).contains(message1);
+        assertThat(findMember.getMessages()).contains(message1);
     }
 
     @Test
@@ -122,16 +117,16 @@ public class MessageRepositoryTest {
     }
 
     @Test
-    public void findAllByUser(){
+    public void findAllByMember(){
         //given
-        userRepository.save(user1);
+        userRepository.save(member1);
 
-        message1.setUser(user1);
-        user1.getMessages().add(message1);
-        message2.setUser(user1);
-        user1.getMessages().add(message2);
-        message3.setUser(user1);
-        user1.getMessages().add(message3);
+        message1.setMember(member1);
+        member1.getMessages().add(message1);
+        message2.setMember(member1);
+        member1.getMessages().add(message2);
+        message3.setMember(member1);
+        member1.getMessages().add(message3);
 
         messageRepository.save(message1);
         messageRepository.save(message2);
@@ -139,7 +134,7 @@ public class MessageRepositoryTest {
 
 
         //when
-        List<Message> messages = messageRepository.findAllByUser(user1);
+        List<Message> messages = messageRepository.findAllByMember(member1);
         //then
         assertThat(messages.size()).isEqualTo(3);
     }
@@ -147,10 +142,10 @@ public class MessageRepositoryTest {
     @Test
     public void findAllByDeadline(){
         //given
-        userRepository.save(user1);
-        message1.setUser(user1);
-        message2.setUser(user1);
-        yesterdayMessage.setUser(user1);
+        userRepository.save(member1);
+        message1.setMember(member1);
+        message2.setMember(member1);
+        yesterdayMessage.setMember(member1);
 
         messageRepository.save(message1);
         messageRepository.save(message2);

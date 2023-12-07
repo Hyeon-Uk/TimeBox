@@ -1,6 +1,6 @@
 package TIAB.timebox.dto;
 
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.entity.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,9 +8,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class UserDtoRes {
+public class MemberDtoRes {
     private Long id;
     private String email;
     private long kakaoId;
-    private User user;
+    private Member member;
 }

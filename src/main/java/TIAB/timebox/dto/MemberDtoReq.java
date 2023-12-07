@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class UserDtoReq {
+public class MemberDtoReq {
     private Long kakaoId;
     private String email;
     private String imgSrc;

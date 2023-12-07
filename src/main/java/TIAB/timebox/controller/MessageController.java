@@ -33,11 +33,11 @@ public class MessageController {
 
     @PostMapping
     public String sendMessage(@AuthenticationPrincipal OAuth2User oAuth2User, MessageDtoReq messageDtoReq) throws IOException {
-        long userId=oAuth2User.getAttribute("id");
+        long memberId=oAuth2User.getAttribute("id");
         if(messageDtoReq.getDeadline()==null){
             return "redirect:/message";
         }
-        messageService.save(userId, messageDtoReq);
+        messageService.save(memberId, messageDtoReq);
         return "redirect:/";
     }
 
@@ -50,7 +50,7 @@ public class MessageController {
         MessageDtoRes messageDtoRes=messageService.getByMessageId(Long.parseLong(id));
 
         if(now.getTime()<messageDtoRes.getDeadline().getTime()) throw new NotPassedDeadlineException();
-        if(messageDtoRes.getUser().getId()!=userId) throw new CanNotAccessException();
+        if(messageDtoRes.getMember().getId()!=userId) throw new CanNotAccessException();
 
         model.addAttribute("messageDto",messageDtoRes);
         return "message";

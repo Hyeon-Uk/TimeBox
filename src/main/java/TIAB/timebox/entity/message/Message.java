@@ -1,7 +1,7 @@
 package TIAB.timebox.entity.message;
 
 import TIAB.timebox.entity.BaseEntity;
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.entity.member.Member;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,13 +33,13 @@ public class Message extends BaseEntity {
     private int height;
 
     @Builder
-    public Message(String filename,String fileUrl, int width, int height, Date deadline, User user) {
+    public Message(String filename,String fileUrl, int width, int height, Date deadline, Member member) {
         this.filename = filename;
         this.fileUrl=fileUrl;
         this.width = width;
         this.height = height;
         this.deadline = deadline;
-        this.user = user;
+        this.member = member;
     }
 
     @Temporal(TemporalType.DATE)
@@ -48,6 +48,6 @@ public class Message extends BaseEntity {
     private Date deadline;
 
     @ManyToOne
-    @JoinColumn(name="u_id")
-    private User user;
+    @JoinColumn(name="m_id")
+    private Member member;
 }

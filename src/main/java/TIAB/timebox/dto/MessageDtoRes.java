@@ -1,6 +1,6 @@
 package TIAB.timebox.dto;
 
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.entity.member.Member;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -19,5 +19,5 @@ public class MessageDtoRes {
     int height;
     String filename;
     String fileUrl;
-    User user;
+    Member member;
 }

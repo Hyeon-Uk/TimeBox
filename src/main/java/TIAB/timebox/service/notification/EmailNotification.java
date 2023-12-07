@@ -1,7 +1,6 @@
 package TIAB.timebox.service.notification;
 
 import TIAB.timebox.entity.message.Message;
-import TIAB.timebox.service.notification.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,7 +22,7 @@ public class EmailNotification implements Notification {
         if(messages==null) return;
         messages.forEach(message->{
             SimpleMailMessage msg=new SimpleMailMessage();
-            msg.setTo(message.getUser().getEmail());
+            msg.setTo(message.getMember().getEmail());
             msg.setSubject(SUBJECT);
             msg.setText(TEXT);
             javaMailSender.send(msg);

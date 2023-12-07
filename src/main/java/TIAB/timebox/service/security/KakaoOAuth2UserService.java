@@ -1,6 +1,6 @@
 package TIAB.timebox.service.security;
 
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.entity.member.Member;
 import TIAB.timebox.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -46,22 +46,22 @@ public class KakaoOAuth2UserService extends DefaultOAuth2UserService{
 //
 //        Map<String,Object> verifyInfo=new HashMap<>();
 //        verifyInfo.put("id",savedUser.getId());
-        Optional<User> byKakaoId = userRepository.findByKakaoId(profileKakaoId);
-        User securityUser=null;
+        Optional<Member> byKakaoId = userRepository.findByKakaoId(profileKakaoId);
+        Member securityMember =null;
         if(!byKakaoId.isPresent()){
-            User newUser=User.builder()
+            Member newMember = Member.builder()
                     .kakaoId(profileKakaoId)
                     .email(profileEmail)
                     .imgSrc(profileImgSrc)
                     .build();
 
-            securityUser=userRepository.save(newUser);
+            securityMember =userRepository.save(newMember);
         }
         else{
-            securityUser=byKakaoId.get();
+            securityMember =byKakaoId.get();
         }
         Map<String,Object> verifyInfo=new HashMap<>();
-        verifyInfo.put("id",securityUser.getId());
+        verifyInfo.put("id", securityMember.getId());
 
         return new DefaultOAuth2User(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),verifyInfo,"id");
     }

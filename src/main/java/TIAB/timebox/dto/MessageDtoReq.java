@@ -1,6 +1,6 @@
 package TIAB.timebox.dto;
 
-import TIAB.timebox.entity.user.User;
+import TIAB.timebox.entity.member.Member;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,5 +21,5 @@ public class MessageDtoReq {
 
     String filename;
     String fileUrl;
-    User user;
+    Member member;
 }

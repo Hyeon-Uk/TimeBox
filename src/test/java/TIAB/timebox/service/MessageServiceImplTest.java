@@ -3,8 +3,8 @@ package TIAB.timebox.service;
 import TIAB.timebox.dto.FileServiceDtoRes;
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
+import TIAB.timebox.entity.member.Member;
 import TIAB.timebox.entity.message.Message;
-import TIAB.timebox.entity.user.User;
 import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
@@ -46,7 +46,7 @@ public class MessageServiceImplTest {
     @Mock
     private FileService fileService;
 
-    User user1,user2;
+    Member member1, member2;
 
     MessageDtoReq yesterdayDtoReq,todayDtoReq,tomorrowDtoReq;
     Message yesterdayMessage,todayMessage,tomorrowMessage,yesterdayMessageAfter,todayMessageAfter,tomorrowMessageAfter;
@@ -74,22 +74,22 @@ public class MessageServiceImplTest {
         today=new Date();
         tomorrow=new Date(new Date().getTime()+(1000 * 60 * 60 * 24 * 1));
 
-        user1=User.builder()
+        member1 = Member.builder()
                 .email("test1@gmail.com")
                 .kakaoId(1l)
                 .imgSrc("testImgSrc")
                 .build();
-        user1.setId(1l);
+        member1.setId(1l);
 
-        user2=User.builder()
+        member2 = Member.builder()
                 .email("test2@gmail.com")
                 .kakaoId(2l)
                 .imgSrc("test2ImgSrc")
                 .build();
-        user2.setId(2l);
+        member2.setId(2l);
 
         yesterdayDtoReq=MessageDtoReq.builder()
-                .user(user1)
+                .member(member1)
                 .content(getMockMultifile(filename1,contentType,filepath1))
                 .deadline(yesterday)
                 .height(10)
@@ -97,7 +97,7 @@ public class MessageServiceImplTest {
                 .build();
 
         todayDtoReq=MessageDtoReq.builder()
-                .user(user1)
+                .member(member1)
                 .content(getMockMultifile(filename2,contentType,filepath2))
                 .deadline(today)
                 .height(20)
@@ -105,7 +105,7 @@ public class MessageServiceImplTest {
                 .build();
 
         tomorrowDtoReq=MessageDtoReq.builder()
-                .user(user2)
+                .member(member2)
                 .content(getMockMultifile(filename3,contentType,filepath3))
                 .deadline(tomorrow)
                 .height(30)
@@ -170,7 +170,7 @@ public class MessageServiceImplTest {
         public void save() throws IOException {
             //given
             System.out.println(new Date());
-            when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user1));
+            when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(member1));
             when(messageRepository.save(any())).thenReturn(todayMessageAfter);
             doAnswer(new Answer() {
                 @Override
@@ -184,7 +184,7 @@ public class MessageServiceImplTest {
             }).when(fileService).save(any());
 
             //when
-            MessageDtoRes actual = messageService.save(user1.getId(), todayDtoReq);
+            MessageDtoRes actual = messageService.save(member1.getId(), todayDtoReq);
 
             //then
             assertEqualDtoRes(actual,todayDtoRes);
@@ -207,7 +207,7 @@ public class MessageServiceImplTest {
             //given
             when(userRepository.findById(anyLong())).thenThrow(UserNotFoundException.class);
             //when & then
-            assertThrows(UserNotFoundException.class,()->messageService.save(user1.getId(),todayDtoReq));
+            assertThrows(UserNotFoundException.class,()->messageService.save(member1.getId(),todayDtoReq));
         }
     }
 }

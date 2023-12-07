@@ -17,7 +17,7 @@ public interface MessageService {
                 .width(messageDtoReq.getWidth())
                 .height(messageDtoReq.getHeight())
                 .deadline(messageDtoReq.getDeadline())
-                .user(messageDtoReq.getUser())
+                .member(messageDtoReq.getMember())
                 .build();
     }
 
@@ -29,7 +29,7 @@ public interface MessageService {
                 .filename(message.getFilename())
                 .fileUrl(message.getFileUrl())
                 .deadline(message.getDeadline())
-                .user(message.getUser())
+                .member(message.getMember())
                 .build();
     }
 }

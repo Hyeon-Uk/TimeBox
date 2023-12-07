@@ -1,7 +1,7 @@
 package TIAB.timebox.controller;
 
-import TIAB.timebox.dto.UserDtoRes;
-import TIAB.timebox.service.user.UserService;
+import TIAB.timebox.dto.MemberDtoRes;
+import TIAB.timebox.service.member.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,13 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HomeController {
 
     @Autowired
-    private UserService userService;
+    private MemberService memberService;
 
     @GetMapping
     public String home(@AuthenticationPrincipal OAuth2User oAuth2User, Model model){
         long id=oAuth2User.getAttribute("id");
-        UserDtoRes user = userService.getUser(id);
-        model.addAttribute("userDto",user);
+        MemberDtoRes member = memberService.getMember(id);
+        model.addAttribute("memberDto",member);
         return "home";
     }
 }

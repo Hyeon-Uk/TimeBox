@@ -1,4 +1,4 @@
-package TIAB.timebox.entity.user;
+package TIAB.timebox.entity.member;
 
 import TIAB.timebox.entity.BaseEntity;
 import TIAB.timebox.entity.message.Message;
@@ -13,8 +13,8 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="user")
-public class User extends BaseEntity {
+@Table(name="member")
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +28,12 @@ public class User extends BaseEntity {
     private String imgSrc;
 
     @Builder
-    public User(Long kakaoId, String email, String imgSrc) {
+    public Member(Long kakaoId, String email, String imgSrc) {
         this.kakaoId = kakaoId;
         this.email = email;
         this.imgSrc = imgSrc;
     }
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "member")
     private List<Message> messages=new ArrayList<>();
 }
