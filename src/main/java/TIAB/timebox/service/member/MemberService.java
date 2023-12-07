@@ -8,11 +8,14 @@ import java.util.List;
 
 public interface MemberService {
     public MemberDtoRes save(MemberDtoReq dto);
+
     public MemberDtoRes getMember(long id);
+
     public MemberDtoRes findByKakaoId(long kakaoId);
+
     public List<MemberDtoRes> getAllMembers();
 
-    default Member dtoToEntity(MemberDtoReq dto){
+    default Member dtoToEntity(MemberDtoReq dto) {
         return Member.builder()
                 .email(dto.getEmail())
                 .kakaoId(dto.getKakaoId())
@@ -20,7 +23,7 @@ public interface MemberService {
                 .build();
     }
 
-    default MemberDtoRes entityToDto(Member entity){
+    default MemberDtoRes entityToDto(Member entity) {
         return MemberDtoRes.builder()
                 .email(entity.getEmail())
                 .kakaoId(entity.getKakaoId())

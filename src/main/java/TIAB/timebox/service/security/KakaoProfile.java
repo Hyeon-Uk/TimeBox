@@ -1,4 +1,5 @@
 package TIAB.timebox.service.security;
+
 import lombok.Getter;
 import lombok.ToString;
 
@@ -12,7 +13,7 @@ public class KakaoProfile {
 
     @Getter
     @ToString
-    public static class Properties{
+    public static class Properties {
         private String nickname;
         private String profile_image;
         private String thumbnail_image;
@@ -20,7 +21,7 @@ public class KakaoProfile {
 
     @Getter
     @ToString
-    public static class KakaoAccount{
+    public static class KakaoAccount {
         private Boolean profile_nickname_needs_agreement;
         private Boolean profile_image_needs_agreement;
         private Profile profile;

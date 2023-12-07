@@ -48,31 +48,31 @@ public class MessageServiceImplTest {
 
     Member member1, member2;
 
-    MessageDtoReq yesterdayDtoReq,todayDtoReq,tomorrowDtoReq;
-    Message yesterdayMessage,todayMessage,tomorrowMessage,yesterdayMessageAfter,todayMessageAfter,tomorrowMessageAfter;
-    MessageDtoRes yesterdayDtoRes,todayDtoRes,tomorrowDtoRes;
-    String filename1,filename2,filename3;
-    String filepath,filepath1,filepath2,filepath3,contentType;
-    Date yesterday,today,tomorrow;
+    MessageDtoReq yesterdayDtoReq, todayDtoReq, tomorrowDtoReq;
+    Message yesterdayMessage, todayMessage, tomorrowMessage, yesterdayMessageAfter, todayMessageAfter, tomorrowMessageAfter;
+    MessageDtoRes yesterdayDtoRes, todayDtoRes, tomorrowDtoRes;
+    String filename1, filename2, filename3;
+    String filepath, filepath1, filepath2, filepath3, contentType;
+    Date yesterday, today, tomorrow;
 
-    private MockMultipartFile getMockMultifile(String filename,String contentType,String path){
-        return new MockMultipartFile(filename,filename+"."+contentType,contentType,path.getBytes());
+    private MockMultipartFile getMockMultifile(String filename, String contentType, String path) {
+        return new MockMultipartFile(filename, filename + "." + contentType, contentType, path.getBytes());
     }
 
     @BeforeEach
     public void init() {
-        filename1="file1";
-        filename2="file2";
-        filename3="file3";
-        contentType="png";
-        filepath="/messagebox";
-        filepath1=filepath+"/"+filename1+"."+contentType;
-        filepath2=filepath+"/"+filename2+"."+contentType;
-        filepath3=filepath+"/"+filename3+"."+contentType;
+        filename1 = "file1";
+        filename2 = "file2";
+        filename3 = "file3";
+        contentType = "png";
+        filepath = "/messagebox";
+        filepath1 = filepath + "/" + filename1 + "." + contentType;
+        filepath2 = filepath + "/" + filename2 + "." + contentType;
+        filepath3 = filepath + "/" + filename3 + "." + contentType;
 
-        yesterday=new Date(new Date().getTime()-(1000 * 60 * 60 * 24 * 1));
-        today=new Date();
-        tomorrow=new Date(new Date().getTime()+(1000 * 60 * 60 * 24 * 1));
+        yesterday = new Date(new Date().getTime() - (1000 * 60 * 60 * 24 * 1));
+        today = new Date();
+        tomorrow = new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * 1));
 
         member1 = Member.builder()
                 .email("test1@gmail.com")
@@ -88,62 +88,62 @@ public class MessageServiceImplTest {
                 .build();
         member2.setId(2l);
 
-        yesterdayDtoReq=MessageDtoReq.builder()
+        yesterdayDtoReq = MessageDtoReq.builder()
                 .member(member1)
-                .content(getMockMultifile(filename1,contentType,filepath1))
+                .content(getMockMultifile(filename1, contentType, filepath1))
                 .deadline(yesterday)
                 .height(10)
                 .width(10)
                 .build();
 
-        todayDtoReq=MessageDtoReq.builder()
+        todayDtoReq = MessageDtoReq.builder()
                 .member(member1)
-                .content(getMockMultifile(filename2,contentType,filepath2))
+                .content(getMockMultifile(filename2, contentType, filepath2))
                 .deadline(today)
                 .height(20)
                 .width(20)
                 .build();
 
-        tomorrowDtoReq=MessageDtoReq.builder()
+        tomorrowDtoReq = MessageDtoReq.builder()
                 .member(member2)
-                .content(getMockMultifile(filename3,contentType,filepath3))
+                .content(getMockMultifile(filename3, contentType, filepath3))
                 .deadline(tomorrow)
                 .height(30)
                 .width(30)
                 .build();
 
-        yesterdayMessage=messageService.dtoToEntity(yesterdayDtoReq);
-        yesterdayMessageAfter=messageService.dtoToEntity(yesterdayDtoReq);
+        yesterdayMessage = messageService.dtoToEntity(yesterdayDtoReq);
+        yesterdayMessageAfter = messageService.dtoToEntity(yesterdayDtoReq);
         yesterdayMessageAfter.setId(1l);
         yesterdayMessageAfter.setFilename(filename1);
-        yesterdayMessageAfter.setFileUrl(filepath+"/"+filename1+"."+contentType);
+        yesterdayMessageAfter.setFileUrl(filepath + "/" + filename1 + "." + contentType);
 
-        todayMessage=messageService.dtoToEntity(todayDtoReq);
-        todayMessageAfter=messageService.dtoToEntity(todayDtoReq);
+        todayMessage = messageService.dtoToEntity(todayDtoReq);
+        todayMessageAfter = messageService.dtoToEntity(todayDtoReq);
         todayMessageAfter.setId(2l);
         todayMessageAfter.setFilename(filename2);
-        todayMessageAfter.setFileUrl(filepath+"/"+filename2+"."+contentType);
+        todayMessageAfter.setFileUrl(filepath + "/" + filename2 + "." + contentType);
 
-        tomorrowMessage=messageService.dtoToEntity(tomorrowDtoReq);
-        tomorrowMessageAfter=messageService.dtoToEntity(tomorrowDtoReq);
+        tomorrowMessage = messageService.dtoToEntity(tomorrowDtoReq);
+        tomorrowMessageAfter = messageService.dtoToEntity(tomorrowDtoReq);
         tomorrowMessageAfter.setId(2l);
         tomorrowMessageAfter.setFilename(filename3);
-        tomorrowMessageAfter.setFileUrl(filepath+"/"+filename3+"."+contentType);
+        tomorrowMessageAfter.setFileUrl(filepath + "/" + filename3 + "." + contentType);
 
-        yesterdayDtoRes=messageService.entityToDto(yesterdayMessageAfter);
+        yesterdayDtoRes = messageService.entityToDto(yesterdayMessageAfter);
         yesterdayDtoRes.setFilename(filename1);
         yesterdayDtoRes.setFileUrl(filepath1);
 
-        todayDtoRes=messageService.entityToDto(todayMessageAfter);
+        todayDtoRes = messageService.entityToDto(todayMessageAfter);
         todayDtoRes.setFilename(filename2);
         todayDtoRes.setFileUrl(filepath2);
 
-        tomorrowDtoRes=messageService.entityToDto(tomorrowMessageAfter);
+        tomorrowDtoRes = messageService.entityToDto(tomorrowMessageAfter);
         tomorrowDtoRes.setFilename(filename3);
         tomorrowDtoRes.setFileUrl(filepath3);
     }
 
-    private void assertEqualDtoRes(MessageDtoRes dto1,MessageDtoRes dto2){
+    private void assertEqualDtoRes(MessageDtoRes dto1, MessageDtoRes dto2) {
         assertThat(dto1.getDeadline()).isEqualTo(dto2.getDeadline());
         assertThat(dto1.getFilename()).isEqualTo(dto2.getFilename());
         assertThat(dto1.getFileUrl()).isEqualTo(dto2.getFileUrl());
@@ -153,9 +153,9 @@ public class MessageServiceImplTest {
 
     @Nested
     @DisplayName("Success Case")
-    class Success{
+    class Success {
         @Test
-        public void getByMessageId(){
+        public void getByMessageId() {
             //given
             when(messageRepository.findById(anyLong())).thenReturn(Optional.ofNullable(todayMessageAfter));
 
@@ -163,7 +163,7 @@ public class MessageServiceImplTest {
             MessageDtoRes actual = messageService.getByMessageId(todayMessageAfter.getId());
 
             //then
-            assertEqualDtoRes(actual,todayDtoRes);
+            assertEqualDtoRes(actual, todayDtoRes);
         }
 
         @Test
@@ -175,7 +175,7 @@ public class MessageServiceImplTest {
             doAnswer(new Answer() {
                 @Override
                 public Object answer(InvocationOnMock invocation) throws Throwable {
-                    MessageDtoReq dto=(MessageDtoReq) invocation.getArgument(0);
+                    MessageDtoReq dto = (MessageDtoReq) invocation.getArgument(0);
                     return FileServiceDtoRes.builder()
                             .filename(dto.getFilename())
                             .fileUrl(dto.getFileUrl())
@@ -187,27 +187,27 @@ public class MessageServiceImplTest {
             MessageDtoRes actual = messageService.save(member1.getId(), todayDtoReq);
 
             //then
-            assertEqualDtoRes(actual,todayDtoRes);
+            assertEqualDtoRes(actual, todayDtoRes);
         }
     }
 
     @Nested
     @DisplayName("Failed case")
-    class Failed{
+    class Failed {
         @Test
-        public void getByMessageIdFailed(){
+        public void getByMessageIdFailed() {
             //given
             when(messageRepository.findById(1l)).thenThrow(MessageNotFoundException.class);
             //when & then
-            assertThrows(MessageNotFoundException.class,()->messageService.getByMessageId(1l));
+            assertThrows(MessageNotFoundException.class, () -> messageService.getByMessageId(1l));
         }
 
         @Test
-        public void saveFailed_사용자없음(){
+        public void saveFailed_사용자없음() {
             //given
             when(userRepository.findById(anyLong())).thenThrow(UserNotFoundException.class);
             //when & then
-            assertThrows(UserNotFoundException.class,()->messageService.save(member1.getId(),todayDtoReq));
+            assertThrows(UserNotFoundException.class, () -> messageService.save(member1.getId(), todayDtoReq));
         }
     }
 }

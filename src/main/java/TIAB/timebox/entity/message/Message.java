@@ -13,29 +13,29 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="message")
+@Table(name = "message")
 public class Message extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
 
-    @Column(name="filename")
+    @Column(name = "filename")
     private String filename;
 
-    @Column(name="fileUrl")
+    @Column(name = "fileUrl")
     private String fileUrl;
 
-    @Column(name="width")
+    @Column(name = "width")
     private int width;
 
-    @Column(name="height")
+    @Column(name = "height")
     private int height;
 
     @Builder
-    public Message(String filename,String fileUrl, int width, int height, Date deadline, Member member) {
+    public Message(String filename, String fileUrl, int width, int height, Date deadline, Member member) {
         this.filename = filename;
-        this.fileUrl=fileUrl;
+        this.fileUrl = fileUrl;
         this.width = width;
         this.height = height;
         this.deadline = deadline;
@@ -43,11 +43,11 @@ public class Message extends BaseEntity {
     }
 
     @Temporal(TemporalType.DATE)
-    @Column(name="deadline")
-    @DateTimeFormat(pattern="yyyy-MM-dd hh:mm:ss")
+    @Column(name = "deadline")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     private Date deadline;
 
     @ManyToOne
-    @JoinColumn(name="m_id")
+    @JoinColumn(name = "m_id")
     private Member member;
 }

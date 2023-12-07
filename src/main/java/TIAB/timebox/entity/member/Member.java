@@ -13,18 +13,18 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="member")
+@Table(name = "member")
 public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private Long id;
-    @Column(name="kakao_id")
+    @Column(name = "kakao_id")
     private Long kakaoId;
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
-    @Column(name="img_src")
+    @Column(name = "img_src")
     private String imgSrc;
 
     @Builder
@@ -35,5 +35,5 @@ public class Member extends BaseEntity {
     }
 
     @OneToMany(mappedBy = "member")
-    private List<Message> messages=new ArrayList<>();
+    private List<Message> messages = new ArrayList<>();
 }

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -18,7 +19,7 @@ public class MemberRepositoryTest {
     Member member, member1, member2;
 
     @BeforeEach
-    public void setUp(){
+    public void setUp() {
         member = Member.builder()
                 .email("test@naver.com")
                 .imgSrc("testImg")
@@ -38,7 +39,7 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void saveUser(){
+    public void saveUser() {
         //given
 
         //when
@@ -49,76 +50,76 @@ public class MemberRepositoryTest {
     }
 
     @Test
-    public void findUserById(){
+    public void findUserById() {
         //given
         userRepository.save(member);
 
         //when
-        Member find=userRepository.findById(member.getId()).orElse(null);
+        Member find = userRepository.findById(member.getId()).orElse(null);
 
         //then
         assertThat(find).isEqualTo(member);
     }
 
     @Test
-    public void findByEmail(){
+    public void findByEmail() {
         //given
         userRepository.save(member);
 
         //when
-        Member find=userRepository.findByEmail(member.getEmail()).orElse(null);
+        Member find = userRepository.findByEmail(member.getEmail()).orElse(null);
 
         //then
         assertThat(find).isEqualTo(member);
     }
 
     @Test
-    public void findByKakaoId(){
+    public void findByKakaoId() {
         //given
         userRepository.save(member);
 
         //when
-        Member find=userRepository.findByKakaoId(member.getKakaoId()).orElse(null);
+        Member find = userRepository.findByKakaoId(member.getKakaoId()).orElse(null);
 
         //then
         assertThat(find).isEqualTo(member);
     }
 
     @Test
-    public void findAll(){
-        int beforeSize=userRepository.findAll().size();
+    public void findAll() {
+        int beforeSize = userRepository.findAll().size();
 
         //given && when && then
         userRepository.save(member);
         List<Member> members = userRepository.findAll();
         System.out.println(members.size());
-        assertThat(members.size()).isEqualTo(beforeSize+1);
+        assertThat(members.size()).isEqualTo(beforeSize + 1);
         assertThat(members).contains(member);
 
         userRepository.save(member1);
         List<Member> users1 = userRepository.findAll();
         System.out.println(members.size());
-        assertThat(users1.size()).isEqualTo(beforeSize+2);
+        assertThat(users1.size()).isEqualTo(beforeSize + 2);
         assertThat(users1).contains(member);
         assertThat(users1).contains(member1);
 
         userRepository.save(member2);
         List<Member> users2 = userRepository.findAll();
         System.out.println(members.size());
-        assertThat(users2.size()).isEqualTo(beforeSize+3);
+        assertThat(users2.size()).isEqualTo(beforeSize + 3);
         assertThat(users2).contains(member);
         assertThat(users2).contains(member1);
         assertThat(users2).contains(member2);
     }
 
     @Test
-    public void updateEmail(){
+    public void updateEmail() {
         //given
         Member saved = userRepository.save(member);
 
         //when
         saved.setEmail("changed@gmail.com");
-        Member changedEmailMember =userRepository.save(saved);
+        Member changedEmailMember = userRepository.save(saved);
 
         //then
         assertThat(changedEmailMember).isEqualTo(saved);

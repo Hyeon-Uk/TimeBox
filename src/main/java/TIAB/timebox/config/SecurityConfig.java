@@ -11,25 +11,29 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final KakaoOAuth2UserService kakaoOauth2UserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().headers().frameOptions().disable()
+        http.csrf()
+                .disable()
+                .headers()
+                .frameOptions()
+                .disable()
                 .and()
                 .authorizeRequests()
-                    .antMatchers("/auth/kakao/**","/css/**","/images/**","/fonts/**","/auth/login").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
+                .antMatchers("/auth/kakao/**", "/css/**", "/images/**", "/fonts/**", "/auth/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .logout()
-                    .logoutSuccessUrl("/auth/login")
-                    .invalidateHttpSession(true)
-                    .deleteCookies("JSESSIONID")
-                    .permitAll()
-                    .and()
+                .logoutSuccessUrl("/auth/login")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID").permitAll()
+                .and()
                 .oauth2Login()
-                    .loginPage("/auth/login")
-                    .userInfoEndpoint()
-                    .userService(kakaoOauth2UserService);
+                .loginPage("/auth/login")
+                .userInfoEndpoint()
+                .userService(kakaoOauth2UserService);
     }
 }

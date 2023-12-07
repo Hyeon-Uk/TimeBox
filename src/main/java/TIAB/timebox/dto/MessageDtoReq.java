@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class MessageDtoReq {
     MultipartFile content;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date deadline;
     int width;
     int height;

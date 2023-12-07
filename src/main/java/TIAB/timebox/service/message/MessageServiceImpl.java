@@ -3,8 +3,8 @@ package TIAB.timebox.service.message;
 import TIAB.timebox.dto.FileServiceDtoRes;
 import TIAB.timebox.dto.MessageDtoReq;
 import TIAB.timebox.dto.MessageDtoRes;
-import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.entity.member.Member;
+import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.UserNotFoundException;
 import TIAB.timebox.repository.MessageRepository;
@@ -19,22 +19,22 @@ import java.io.IOException;
 
 @Service
 @Slf4j
-public class MessageServiceImpl implements MessageService{
+public class MessageServiceImpl implements MessageService {
     private UserRepository userRepository;
     private MessageRepository messageRepository;
     private FileService fileService;
 
     @Autowired
-    public MessageServiceImpl(UserRepository userRepository,MessageRepository messageRepository,FileService fileService){
-        this.userRepository=userRepository;
-        this.messageRepository=messageRepository;
-        this.fileService=fileService;
+    public MessageServiceImpl(UserRepository userRepository, MessageRepository messageRepository, FileService fileService) {
+        this.userRepository = userRepository;
+        this.messageRepository = messageRepository;
+        this.fileService = fileService;
     }
 
     @Override
     @Transactional
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
-        Member member =userRepository.findById(id).orElseThrow(()->new UserNotFoundException());
+        Member member = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
 
         FileServiceDtoRes fileServiceDtoRes = fileService.save(messageDtoReq);
 
@@ -47,7 +47,7 @@ public class MessageServiceImpl implements MessageService{
         return entityToDto(messageRepository.save(message));
     }
 
-    public MessageDtoRes getByMessageId(long id){
-        return entityToDto(messageRepository.findById(id).orElseThrow(()->new MessageNotFoundException()));
+    public MessageDtoRes getByMessageId(long id) {
+        return entityToDto(messageRepository.findById(id).orElseThrow(() -> new MessageNotFoundException()));
     }
 }

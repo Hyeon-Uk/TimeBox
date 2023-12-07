@@ -14,17 +14,16 @@ import java.util.List;
 @Component
 @Slf4j
 public class Scheduler {
-
     @Autowired
     private MessageRepository messageRepository;
     @Autowired
     private Notification notification;
 
-    @Scheduled(cron="0 0 9 * * *",zone="Asia/Seoul")
-    public void sendCompleteMessage(){
+    @Scheduled(cron = "0 0 9 * * *", zone = "Asia/Seoul")
+    public void sendCompleteMessage() {
         log.info("Send Message Start!");
-        List<Message> messages= messageRepository.findAllByDeadline(new Date());
+        List<Message> messages = messageRepository.findAllByDeadline(new Date());
         notification.sendNotification(messages);
-        log.info("Send Message Finish, send Count="+messages.size());
+        log.info("Send Message Finish, send Count=" + messages.size());
     }
 }

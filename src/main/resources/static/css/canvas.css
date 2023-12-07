@@ -1,18 +1,18 @@
-input[type=number]{
-    text-align:center;
-    width:50px;
-    border-radius:15px;
-    border:1px solid #c8c8c8;
+input[type=number] {
+    text-align: center;
+    width: 50px;
+    border-radius: 15px;
+    border: 1px solid #c8c8c8;
 }
 
 
-textarea{
-    all:unset;
-    border-radius:15px;
-    width:70vw;
-    max-width:960px;
-    border:1px solid #c8c8c8;
-    padding:10px;
+textarea {
+    all: unset;
+    border-radius: 15px;
+    width: 70vw;
+    max-width: 960px;
+    border: 1px solid #c8c8c8;
+    padding: 10px;
 }
 
 /* textarea::-webkit-scrollbar {
@@ -39,15 +39,16 @@ textarea::-webkit-scrollbar-track {
     align-items: center;
     padding-top: 50px;
 }
+
 .canvas {
     /* width: 70vw; */
     /* height: 70vh; */
-    max-width:960px;
-    max-height:960px;
+    max-width: 960px;
+    max-height: 960px;
     background-color: white;
-    position:absolute;
+    position: absolute;
     opacity: 0.5;
-    z-index:99;
+    z-index: 99;
     border-radius: 30px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
@@ -55,34 +56,39 @@ textarea::-webkit-scrollbar-track {
 .textCanvas {
     /* width: 70vw; */
     /* height: 70vh; */
-    max-width:960px;
-    max-height:960px;
-    background-color:rgba(0,0,0,0);
+    max-width: 960px;
+    max-height: 960px;
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 30px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
-.resultCanvas{
-    border:1px solid black;
+
+.resultCanvas {
+    border: 1px solid black;
 }
-.tools{
-    display:flex;
+
+.tools {
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.tools > *{
-    margin-bottom:20px;
+
+.tools > * {
+    margin-bottom: 20px;
 }
 
 .controls {
     margin-top: 80px;
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .controls .controls__colors {
     display: flex;
 }
+
 .controls__colors .controls__color {
     width: 50px;
     height: 50px;
@@ -90,6 +96,7 @@ textarea::-webkit-scrollbar-track {
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
     cursor: pointer;
 }
+
 .controls .controls__btns {
     margin-bottom: 30px;
 }
@@ -110,9 +117,11 @@ textarea::-webkit-scrollbar-track {
     font-size: 12px;
     box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 }
+
 .controls__btns button:active {
     transform: scale(0.97);
 }
+
 .controls .controls__range {
     margin-bottom: 30px;
 }

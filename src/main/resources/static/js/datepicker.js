@@ -11,6 +11,6 @@ $.datepicker.setDefaults({
     yearSuffix: '년'
 });
 
-$(function(){
+$(function () {
     $('.datepicker').datepicker();
 })

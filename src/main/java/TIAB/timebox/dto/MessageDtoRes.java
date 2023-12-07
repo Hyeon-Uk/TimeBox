@@ -13,7 +13,7 @@ import java.util.Date;
 @Builder
 public class MessageDtoRes {
     long id;
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date deadline;
     int width;
     int height;

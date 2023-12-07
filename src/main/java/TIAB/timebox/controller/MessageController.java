@@ -23,18 +23,20 @@ import java.util.Date;
 @Slf4j
 @RequestMapping("/message")
 public class MessageController {
+
     @Autowired
     private MessageService messageService;
 
     @GetMapping
-    public String makeMessage(){
+    public String makeMessage() {
         return "make";
     }
 
     @PostMapping
-    public String sendMessage(@AuthenticationPrincipal OAuth2User oAuth2User, MessageDtoReq messageDtoReq) throws IOException {
-        long memberId=oAuth2User.getAttribute("id");
-        if(messageDtoReq.getDeadline()==null){
+    public String sendMessage(@AuthenticationPrincipal OAuth2User oAuth2User,
+                              MessageDtoReq messageDtoReq) throws IOException {
+        long memberId = oAuth2User.getAttribute("id");
+        if (messageDtoReq.getDeadline() == null) {
             return "redirect:/message";
         }
         messageService.save(memberId, messageDtoReq);
@@ -43,16 +45,19 @@ public class MessageController {
 
     @GetMapping("/{id}")
     public String showMessage(@PathVariable("id") String id,
-                              @AuthenticationPrincipal OAuth2User oAuth2User,
-                              Model model) {
-        Date now=new Date();
-        long userId=oAuth2User.getAttribute("id");
-        MessageDtoRes messageDtoRes=messageService.getByMessageId(Long.parseLong(id));
+                              @AuthenticationPrincipal OAuth2User oAuth2User, Model model) {
+        Date now = new Date();
+        long userId = oAuth2User.getAttribute("id");
+        MessageDtoRes messageDtoRes = messageService.getByMessageId(Long.parseLong(id));
 
-        if(now.getTime()<messageDtoRes.getDeadline().getTime()) throw new NotPassedDeadlineException();
-        if(messageDtoRes.getMember().getId()!=userId) throw new CanNotAccessException();
+        if (now.getTime() < messageDtoRes.getDeadline().getTime()) {
+            throw new NotPassedDeadlineException();
+        }
+        if (messageDtoRes.getMember().getId() != userId) {
+            throw new CanNotAccessException();
+        }
 
-        model.addAttribute("messageDto",messageDtoRes);
+        model.addAttribute("messageDto", messageDtoRes);
         return "message";
     }
 }

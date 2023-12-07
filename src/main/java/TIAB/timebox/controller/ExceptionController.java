@@ -12,32 +12,37 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @ControllerAdvice
 @Slf4j
 public class ExceptionController {
+
     @ExceptionHandler
-    public String userNotFoundException(UserNotFoundException e, RedirectAttributes redirectAttributes){
+    public String userNotFoundException(UserNotFoundException e,
+                                        RedirectAttributes redirectAttributes) {
         log.error("user not founded");
-        redirectAttributes.addAttribute("error",e.getMessage());
+        redirectAttributes.addAttribute("error", e.getMessage());
         return "redirect:/auth/login";
     }
 
     @ExceptionHandler(MessageNotFoundException.class)
-    public String messageNotFoundException(MessageNotFoundException e,RedirectAttributes redirectAttributes){
+    public String messageNotFoundException(MessageNotFoundException e,
+                                           RedirectAttributes redirectAttributes) {
         log.error("message not found");
-        redirectAttributes.addAttribute("error",e.getMessage());
+        redirectAttributes.addAttribute("error", e.getMessage());
         return "redirect:/";
     }
 
 
     @ExceptionHandler
-    public String notPassedDeadlineException(NotPassedDeadlineException e,RedirectAttributes redirectAttributes){
+    public String notPassedDeadlineException(NotPassedDeadlineException e,
+                                             RedirectAttributes redirectAttributes) {
         log.error("not passed deadline");
-        redirectAttributes.addAttribute("error",e.getMessage());
+        redirectAttributes.addAttribute("error", e.getMessage());
         return "redirect:/";
     }
 
     @ExceptionHandler
-    public String canNotAccessException(CanNotAccessException e,RedirectAttributes redirectAttributes){
+    public String canNotAccessException(CanNotAccessException e,
+                                        RedirectAttributes redirectAttributes) {
         log.error("can not access this message");
-        redirectAttributes.addAttribute("error",e.getMessage());
+        redirectAttributes.addAttribute("error", e.getMessage());
         return "redirect:/";
     }
 }

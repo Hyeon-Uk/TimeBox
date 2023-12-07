@@ -19,10 +19,10 @@ public class HomeController {
     private MemberService memberService;
 
     @GetMapping
-    public String home(@AuthenticationPrincipal OAuth2User oAuth2User, Model model){
-        long id=oAuth2User.getAttribute("id");
+    public String home(@AuthenticationPrincipal OAuth2User oAuth2User, Model model) {
+        long id = oAuth2User.getAttribute("id");
         MemberDtoRes member = memberService.getMember(id);
-        model.addAttribute("memberDto",member);
+        model.addAttribute("memberDto", member);
         return "home";
     }
 }

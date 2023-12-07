@@ -8,9 +8,10 @@ import java.io.IOException;
 
 public interface MessageService {
     public MessageDtoRes save(long id, MessageDtoReq recvMessage) throws IOException;
+
     public MessageDtoRes getByMessageId(long id);
 
-    default Message dtoToEntity(MessageDtoReq messageDtoReq){
+    default Message dtoToEntity(MessageDtoReq messageDtoReq) {
         return Message.builder()
                 .filename(messageDtoReq.getFilename())
                 .fileUrl(messageDtoReq.getFileUrl())
@@ -21,7 +22,7 @@ public interface MessageService {
                 .build();
     }
 
-    default MessageDtoRes entityToDto(Message message){
+    default MessageDtoRes entityToDto(Message message) {
         return MessageDtoRes.builder()
                 .id(message.getId())
                 .width(message.getWidth())
