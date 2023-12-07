@@ -43,3 +43,4 @@ out/
 #/src/main/resources/application-MAIL.yml
 /src/main/resources/*.yml
 /src/main/resources/static/messagebox/**
+/src/test/resources/application-*.yml

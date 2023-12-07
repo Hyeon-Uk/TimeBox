@@ -1,31 +1,3 @@
 spring:
-  config:
-    activate:
-      on-profile: default
   profiles:
-    include:
-      - oauth
-      - mail
-      - db
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-    show-sql: true
----
-
-spring:
-  config:
-    activate:
-      on-profile: test
-  profiles:
-    include:
-      - oauth
-      - mail
-      - dblocal
-  jpa:
-    hibernate:
-      ddl-auto: create
-
-    show-sql: true
----
+    include: oauth, mail, db
