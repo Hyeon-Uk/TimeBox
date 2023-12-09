@@ -1,18 +1,19 @@
 package TIAB.timebox.config;
 
-import TIAB.timebox.service.security.KakaoOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private final KakaoOAuth2UserService kakaoOauth2UserService;
+    private final OAuth2UserService<OAuth2UserRequest, OAuth2User> oAuth2UserService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -23,7 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/kakao/**", "/css/**", "/images/**", "/fonts/**", "/auth/login").permitAll()
+                .antMatchers("/auth/**", "/css/**", "/images/**", "/fonts/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .logout()
@@ -34,6 +35,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .oauth2Login()
                 .loginPage("/auth/login")
                 .userInfoEndpoint()
-                .userService(kakaoOauth2UserService);
+                .userService(oAuth2UserService);
     }
 }
