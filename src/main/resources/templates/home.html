@@ -23,12 +23,12 @@
         <a class="nav-link" th:href="@{/message/}">작성하러 가기</a>
     </nav>
     <div class="profile">
-        <img class="profile-image" src="/static/images/bg.jpg" th:src="${memberDto.member.imgSrc}">
+        <img class="profile-image" src="/static/images/bg.jpg" th:src="${member.profileImg}">
     </div>
     <div class="error" th:if="${param.error}" th:text="${param.error}">error
     </div>
     <div class="boxes row">
-        <a href="#" th:each="message:${memberDto.member.messages}" th:href="@{/message/{id}(id=${message.id})}"
+        <a href="#" th:each="message:${member.messages}" th:href="@{/message/{id}(id=${message.id})}"
            class="box col">
             <input type="hidden" class="deadline-value" th:value="${message.deadline}" value="2022-03-22 00:00:00"/>
             <span class="deadline">
