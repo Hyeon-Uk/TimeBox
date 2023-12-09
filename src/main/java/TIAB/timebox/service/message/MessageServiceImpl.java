@@ -7,8 +7,8 @@ import TIAB.timebox.entity.member.Member;
 import TIAB.timebox.entity.message.Message;
 import TIAB.timebox.exception.MessageNotFoundException;
 import TIAB.timebox.exception.UserNotFoundException;
+import TIAB.timebox.repository.MemberRepository;
 import TIAB.timebox.repository.MessageRepository;
-import TIAB.timebox.repository.UserRepository;
 import TIAB.timebox.service.file.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,14 +21,14 @@ import java.io.IOException;
 @Slf4j
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final MessageRepository messageRepository;
     private final FileService fileService;
 
     @Override
     @Transactional
     public MessageDtoRes save(long id, MessageDtoReq messageDtoReq) throws IOException {
-        Member member = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
+        Member member = memberRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
 
         FileServiceDtoRes fileServiceDtoRes = fileService.save(messageDtoReq);
 

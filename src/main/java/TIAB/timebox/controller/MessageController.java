@@ -5,10 +5,10 @@ import TIAB.timebox.dto.MessageDtoRes;
 import TIAB.timebox.exception.CanNotAccessException;
 import TIAB.timebox.exception.NotPassedDeadlineException;
 import TIAB.timebox.service.message.MessageService;
+import TIAB.timebox.service.security.CustomOAuth2User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +33,9 @@ public class MessageController {
     }
 
     @PostMapping
-    public String sendMessage(@AuthenticationPrincipal OAuth2User oAuth2User,
+    public String sendMessage(@AuthenticationPrincipal CustomOAuth2User oAuth2User,
                               MessageDtoReq messageDtoReq) throws IOException {
-        long memberId = oAuth2User.getAttribute("id");
+        long memberId = oAuth2User.getId();
         if (messageDtoReq.getDeadline() == null) {
             return "redirect:/message";
         }
@@ -45,15 +45,15 @@ public class MessageController {
 
     @GetMapping("/{id}")
     public String showMessage(@PathVariable("id") String id,
-                              @AuthenticationPrincipal OAuth2User oAuth2User, Model model) {
+                              @AuthenticationPrincipal CustomOAuth2User oAuth2User, Model model) {
         Date now = new Date();
-        long userId = oAuth2User.getAttribute("id");
+        long memberId = oAuth2User.getId();
         MessageDtoRes messageDtoRes = messageService.getByMessageId(Long.parseLong(id));
 
         if (now.getTime() < messageDtoRes.getDeadline().getTime()) {
             throw new NotPassedDeadlineException();
         }
-        if (messageDtoRes.getMember().getId() != userId) {
+        if (messageDtoRes.getMember().getId() != memberId) {
             throw new CanNotAccessException();
         }
 
