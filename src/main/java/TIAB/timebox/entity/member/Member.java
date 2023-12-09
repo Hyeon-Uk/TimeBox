@@ -2,14 +2,16 @@ package TIAB.timebox.entity.member;
 
 import TIAB.timebox.entity.BaseEntity;
 import TIAB.timebox.entity.message.Message;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,20 +22,27 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "kakao_id")
-    private Long kakaoId;
+    @Column(name = "social_id")
+    private String socialId;
+    @Column(name = "social_provider")
+    private String socialProvider;
     @Column(name = "email")
     private String email;
-    @Column(name = "img_src")
-    private String imgSrc;
+    @Column(name = "profile_img")
+    private String profileImg;
 
     @Builder
-    public Member(Long kakaoId, String email, String imgSrc) {
-        this.kakaoId = kakaoId;
+    public Member(String socialId, String socialProvider, String email, String profileImg) {
+        this.socialProvider = socialProvider;
+        this.socialId = socialId;
         this.email = email;
-        this.imgSrc = imgSrc;
+        this.profileImg = profileImg;
     }
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
     private List<Message> messages = new ArrayList<>();
+
+    public void updateProfileImg(String profileImg) {
+        this.profileImg = profileImg;
+    }
 }
